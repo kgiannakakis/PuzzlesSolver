@@ -6,12 +6,12 @@ import gr.sullenart.games.puzzles.R;
 import gr.sullenart.games.puzzles.gameengine.SoloPuzzle;
 import gr.sullenart.games.puzzles.gameengine.solo.SoloGame.SoloGameType;
 import gr.sullenart.time.TimeCounter;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +26,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SoloCustomBoardActivity extends Activity 
+public class SoloCustomBoardActivity extends FragmentActivity 
                 implements CustomBoardEditListener {
 	
 	static final int DIALOG_DIRECTIONS_ALERT_ID = 0;
@@ -102,14 +102,14 @@ public class SoloCustomBoardActivity extends Activity
 		targetPositionButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				doSave();
+				doTargetPosition();
 			}
 		});
 		
 		saveButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				doTargetPosition();
+				doSave();
 			}
 		});
 
