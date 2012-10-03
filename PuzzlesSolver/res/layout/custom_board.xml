@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="fill_parent">
+    <TextView android:id="@+id/custom_board_edit_message"
+        	  android:layout_width="fill_parent"
+        	  android:layout_height="wrap_content"
+        	  android:padding="8dp"
+        	  android:gravity="center"
+        	  android:text="@string/edit_board"
+        	  android:textColor="#FFFFFFFF"
+        	  android:background="@drawable/message_gradient"
+        	  android:layout_alignParentTop="true"
+        	  style="@style/Title" />
+    <gr.sullenart.games.puzzles.PuzzleView
+        		android:id="@+id/edit_puzzle_view"
+                android:layout_width="fill_parent"
+        	    android:layout_height="fill_parent"/>
+    <RelativeLayout android:layout_width="fill_parent" 
+                    android:id="@+id/game_toolbar" 
+                    android:layout_centerHorizontal="true" 
+                    android:layout_alignParentBottom="true"
+                    style="@style/ButtonToolbar"
+                    android:layout_marginTop="4dp"> 
+       	<Button android:id="@+id/custom_boards_button_target_position"
+                android:text="@string/target_position"
+                android:gravity="center_vertical"
+                android:background="@drawable/main_button"
+                style="@style/OnBoardButton"/>
+        <Button android:id="@+id/custom_boards_button_save"
+            	android:layout_toRightOf="@id/custom_boards_button_target_position"
+                android:text="@string/save"
+                android:gravity="center_vertical"
+                android:background="@drawable/main_button"
+                style="@style/OnBoardButton" />                                        
+    </RelativeLayout>     
+</RelativeLayout>
