@@ -33,11 +33,7 @@ import android.widget.Toast;
 public class PuzzleActivity extends FragmentActivity
         implements ConfirmationDialog.ConfirmationDialogListener,
                    PleaseWaitDialog.PleaseWaitDialogListener,
-                   HighScoreDialog.HighScoreDialogListener{
-
-	/*static final int DIALOG_FINISH_GAME_ALERT_ID = 0;
-	static final int DIALOG_PLEASE_WAIT_ID = 1;
-	static final int DIALOG_HIGH_SCORE_NAME = 2;*/    
+                   HighScoreDialog.HighScoreDialogListener{   
 
 	private Puzzle puzzle;
 	private PuzzleView puzzleView;
@@ -480,104 +476,6 @@ public class PuzzleActivity extends FragmentActivity
         editor.putString("players_name", playerName);
         editor.commit();    
     }
-
-    /*@Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog;
-        switch(id) {
-        case DIALOG_FINISH_GAME_ALERT_ID:
-        	dialog = createAskUserToFinishGameAlertDialog();
-            break;
-        case DIALOG_PLEASE_WAIT_ID:
-        		pleaseWaitDialog = createPleaseWaitDialog();
-        		return pleaseWaitDialog;
-        case DIALOG_HIGH_SCORE_NAME:
-        	dialog = createHighScoreNameDialog();
-        	break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }*/
-
-    /*private Dialog createAskUserToFinishGameAlertDialog() {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(R.string.finish_game_alert_text)
-    	       .setCancelable(false)
-    	       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-    	           public void onClick(DialogInterface dialog, int id) {
-    	        	   finish();
-    	           }
-    	       })
-    	       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-    	           public void onClick(DialogInterface dialog, int id) {
-    	                dialog.cancel();
-    	           }
-    	       });
-    	AlertDialog alert = builder.create();
-    	return alert;
-    }*/
-
-    /*private Dialog createPleaseWaitDialog() {
-        pleaseWaitDialog = new Dialog(this);
-        pleaseWaitDialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        pleaseWaitDialog.setContentView(R.layout.please_wait_dialog);
-        pleaseWaitDialog.setTitle(R.string.app_name);
-        pleaseWaitDialog.setCancelable(false);
-
-        Button button = (Button) pleaseWaitDialog.findViewById(R.id.cancel_button);
-        TextView messageText = (TextView) pleaseWaitDialog.findViewById(R.id.messageTextView);
-        
-        if (puzzle instanceof SoloPuzzle) {
-        	messageText.setText(R.string.please_wait_long_message);
-        }
-        else {
-        	messageText.setText(R.string.please_wait);
-        }
-
-        button.setOnClickListener(new OnClickListener() {
-        			public void onClick(View v) {
-        				stopTimer();
-        				if (solverTask != null) {
-        					cancelSolveFlag = true;
-        					puzzle.setSolverRunning(false);
-        				}
-        			}
-        		});
-
-        return pleaseWaitDialog;
-    }*/
-    
-    /*private Dialog createHighScoreNameDialog() {
-        final Dialog dialog = new Dialog(this);
-
-        dialog.setContentView(R.layout.high_score_name_dialog);
-        dialog.setTitle(R.string.app_name);
-
-        Button okButton = (Button) dialog.findViewById(R.id.high_score_name_ok_button);
-
-        final SharedPreferences preferences =
-    		PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String oldPlayersName = preferences.getString("players_name", "");
-
-        EditText playersNameEditText = (EditText) dialog.findViewById(R.id.players_name);
-        playersNameEditText.setText(oldPlayersName);
-
-        okButton.setOnClickListener(new OnClickListener() {
-        			public void onClick(View v) {
-        				dialog.dismiss();
-        				String playerName = ((EditText) dialog.findViewById(R.id.players_name))
-        										.getText().toString();
-        				scoresManager.addScore(puzzle.getName(), puzzle.getFamily(),
-        									   playerName, score);
-        				SharedPreferences.Editor editor = preferences.edit();
-        				editor.putString("players_name", playerName);
-        				editor.commit();
-        			}
-        		});
-        return dialog;
-    }*/    
 
     public void startTimer() {
     	if (!timerIsRunning) {

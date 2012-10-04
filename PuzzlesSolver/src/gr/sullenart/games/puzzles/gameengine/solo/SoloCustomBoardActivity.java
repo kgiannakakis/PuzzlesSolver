@@ -215,6 +215,7 @@ public class SoloCustomBoardActivity extends FragmentActivity
 		else {
 			puzzle.setInSetTargetMode(true);
 		}
+		updateButtons();
 	}
 
 	private void doSave() {

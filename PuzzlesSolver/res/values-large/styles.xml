@@ -39,6 +39,14 @@
         <item name="android:padding">10dp</item>
         <item name="android:textSize">24sp</item> 
     </style>
+    <style name="OnBoardButtonIcon" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textSize">24sp</item> 
+    </style>    
     <style name="ButtonToolbar" >
         <item name="android:layout_height">60dp</item>
     </style>    

@@ -14,15 +14,15 @@
                   android:layout_centerHorizontal="true" 
                   android:layout_alignParentTop="true"> 
 	        <Button android:id="@+id/game_button_settings"
-	                android:text="@string/options"
+	                android:drawableLeft="@android:drawable/ic_menu_preferences"
 	                android:gravity="center_vertical"
 	                android:background="@drawable/main_button"
-	                style="@style/OnBoardButton"/>
+	                style="@style/OnBoardButtonIcon"/>
 	       	<Button android:id="@+id/game_button_custom_boards"
-	                android:text="@string/custom_boards"
+	                android:drawableLeft="@android:drawable/ic_menu_add"
 	                android:gravity="center_vertical"
 	                android:background="@drawable/main_button"
-	                style="@style/OnBoardButton"/>                                           
+	                style="@style/OnBoardButtonIcon"/>                                           
     </LinearLayout>      
     <TextView android:id="@+id/no_more_moves_message"
         	  android:layout_width="fill_parent"
