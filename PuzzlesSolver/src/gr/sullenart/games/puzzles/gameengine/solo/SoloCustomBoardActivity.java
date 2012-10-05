@@ -3,43 +3,35 @@ package gr.sullenart.games.puzzles.gameengine.solo;
 import gr.sullenart.games.puzzles.CustomBoardEditListener;
 import gr.sullenart.games.puzzles.PuzzleView;
 import gr.sullenart.games.puzzles.R;
+import gr.sullenart.games.puzzles.dialogs.InstructionsDialog;
+import gr.sullenart.games.puzzles.dialogs.SaveBoardDialog;
 import gr.sullenart.games.puzzles.gameengine.SoloPuzzle;
 import gr.sullenart.games.puzzles.gameengine.solo.SoloGame.SoloGameType;
 import gr.sullenart.time.TimeCounter;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SoloCustomBoardActivity extends FragmentActivity 
-                implements CustomBoardEditListener {
-	
-	static final int DIALOG_DIRECTIONS_ALERT_ID = 0;
-	static final int DIALOG_SAVE_BOARD_ID = 1;	
-	
+                implements CustomBoardEditListener,
+                           InstructionsDialog.InstructionsDialogListener,
+                           SaveBoardDialog.SaveBoardDialogListener {	
 	private SoloPuzzle puzzle;
 	
 	private PuzzleView puzzleView;
 	
 	private SoloPuzzleRepository soloPuzzleRepository;
-	
-	private Dialog directionsDialog;
-	private Dialog saveDialog;
 	
 	private String boardName;
 	private int [] board;
@@ -82,10 +74,6 @@ public class SoloCustomBoardActivity extends FragmentActivity
 									 " " + boardName);
 		}
 		
-    	// Create Puzzle View
-    	//SharedPreferences preferences =
-    	//	PreferenceManager.getDefaultSharedPreferences(getBaseContext());		
-    	//String theme = preferences.getString("Solo_Theme", "wood");        
         puzzle = new SoloPuzzle(this);        
         
 		SoloGame soloGame = new SoloGame(board, targetPosition, boardType);
@@ -144,9 +132,8 @@ public class SoloCustomBoardActivity extends FragmentActivity
     		preferences.getBoolean("Show_Custom_Board_Instructions", true);
     	
     	if (showIntructionsFlag && showDirections) {
-    		showDirections = false;
-    		showDialog(DIALOG_DIRECTIONS_ALERT_ID);
-    		directionsDialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.icon);
+    		showDirections = false;            
+            showInstructionsDialog();
     	}
     	boardsListUpdated = false;
     }	
@@ -215,13 +202,12 @@ public class SoloCustomBoardActivity extends FragmentActivity
 		else {
 			puzzle.setInSetTargetMode(true);
 		}
-		updateButtons();
+        updateButtons();
 	}
 
 	private void doSave() {
 		if (boardName == null || boardName.length() == 0) {
-			showDialog(DIALOG_SAVE_BOARD_ID);
-			saveDialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.icon);
+            showSaveBoardDialog();
 		}
 		else {
 		    targetPosition = puzzle.getTargetPosition();
@@ -248,86 +234,37 @@ public class SoloCustomBoardActivity extends FragmentActivity
 		editor.putString("Solo_Puzzle_Type", boardName);
 		editor.commit();
 		boardsListUpdated = true;
-    }    
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch(id) {
-        case DIALOG_DIRECTIONS_ALERT_ID:
-        	dialog = createDirectionsAlertDialog();
-            break;
-        case DIALOG_SAVE_BOARD_ID:
-        	dialog = createSaveBoardDialog();
-        	break;
-        }
-
-        return dialog;
-    }    
+    } 
     
-    private Dialog createDirectionsAlertDialog() {
-    	directionsDialog = new Dialog(this);
-    	directionsDialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-    	directionsDialog.setContentView(R.layout.instructions_dialog);
-    	directionsDialog.setTitle(R.string.app_name);
-    	
-        Button okButton = (Button) directionsDialog.findViewById(R.id.instructions_ok_button);
-
-        CheckBox instructionsCheckbox = (CheckBox)
-        	directionsDialog.findViewById(R.id.show_instructions_again);
-        
-        instructionsCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		        final SharedPreferences preferences =
-		    		PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("Show_Custom_Board_Instructions", !isChecked);
-				editor.commit();				
-			}
-		});
-        
-        okButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				directionsDialog.dismiss();
-			}
-        });
- 	
-    	return directionsDialog;
+    private void showInstructionsDialog() {
+        DialogFragment instructionsDialog = InstructionsDialog.newInstance(
+                                            getResources().getString(R.string.app_name),
+                                            getResources().getString(R.string.solo_new_board_directions),
+                                            R.drawable.icon);
+        instructionsDialog.show(getSupportFragmentManager(), "instructions_dialog");  
     }
     
-    private Dialog createSaveBoardDialog() {
-        saveDialog = new Dialog(this);
-    	saveDialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        saveDialog.setContentView(R.layout.new_board_dialog);
-        saveDialog.setTitle(R.string.app_name);
+    public void onShowInstructionsChecked(boolean isChecked) {
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("Show_Custom_Board_Instructions", !isChecked);
+        editor.commit();    
+    }
+    
+    private void showSaveBoardDialog() {
+        DialogFragment saveBoardDialog = SaveBoardDialog.newInstance();
+        saveBoardDialog.show(getSupportFragmentManager(), "save_board_dialog");     
+    }
 
-        Button okButton = (Button) saveDialog.findViewById(R.id.new_board_ok_button);
-
-        okButton.setOnClickListener(new OnClickListener() {
-        			public void onClick(View v) {
-        				boardName = ((EditText) saveDialog.findViewById(R.id.board_name_prompt))
-        										.getText().toString();
-        				if (boardName == null || boardName.length() == 0) {
-        					TextView boardErrorText = (TextView) saveDialog.findViewById(R.id.add_board_error);
-        					boardErrorText.setVisibility(View.VISIBLE);
-        					boardErrorText.setText(R.string.name_cant_be_empty);
-        				}
-        				else if (soloPuzzleRepository.nameExists(boardName) ||
-        				    !soloPuzzleRepository.addGame(boardName, 
-        				    		new SoloGame(puzzle.getBoardTable(), targetPosition, boardType))) {
-        					TextView boardErrorText = (TextView) saveDialog.findViewById(R.id.add_board_error);
-        					boardErrorText.setVisibility(View.VISIBLE);
-        					boardErrorText.setText(R.string.name_already_in_use);
-        				}
-        				else {
-        					saveNewBoardAsSelected();
-        					saveDialog.dismiss();
-        					finish();
-        				}
-        			}
-        		});         
-        return saveDialog;    	
+    public boolean onBoardSaving(String boardName) {
+        if (soloPuzzleRepository.nameExists(boardName) ||
+                !soloPuzzleRepository.addGame(boardName, 
+        			new SoloGame(puzzle.getBoardTable(), targetPosition, boardType))) {
+            return false;
+        }
+        saveNewBoardAsSelected();
+        finish();
+        return true;
     }
 }

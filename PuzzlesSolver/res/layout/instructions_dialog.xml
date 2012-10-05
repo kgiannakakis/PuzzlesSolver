@@ -7,10 +7,10 @@
               android:padding="2dp">
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
+              android:id="@+id/instructions_text"
               android:textColor="#FFF"
               android:paddingLeft="5dp"
               android:paddingRight="5dp"
-              android:text="@string/solo_new_board_directions"
               />
     <Button android:id="@+id/instructions_ok_button"
    	  	    android:layout_width="fill_parent"

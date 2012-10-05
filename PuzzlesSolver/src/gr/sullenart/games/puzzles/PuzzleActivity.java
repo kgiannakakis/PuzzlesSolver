@@ -57,6 +57,8 @@ public class PuzzleActivity extends FragmentActivity
 	private boolean isSolverUsed = false;
     
     private boolean menuFocus = false;
+    
+    private boolean wasSolverRunning = false;
 
 	private Runnable timerRunnable = new Runnable() {
 		@Override
@@ -248,6 +250,10 @@ public class PuzzleActivity extends FragmentActivity
     	if (replayTimerRunning) {
     		replayHandler.removeCallbacks(replayRunnable);
     	}
+    	
+    	if (wasSolverRunning) {
+    		onCancelButtonClicked();
+    	}
     }
 
     @Override
@@ -260,7 +266,11 @@ public class PuzzleActivity extends FragmentActivity
     	}
     	if (replayTimerRunning) {
     		replayHandler.postDelayed(replayRunnable , replayIntervalMs);
-    	}     	
+    	}
+    	
+    	if (wasSolverRunning) {
+    		showPleaseWaitDialog();
+    	}
     }
 
     public void resume() {
@@ -382,7 +392,20 @@ public class PuzzleActivity extends FragmentActivity
 	private void doSolve() {
     	isSolverUsed = true;
     	
-        String pleaseWaitMessage;
+        showPleaseWaitDialog();        
+    	
+    	cancelSolveFlag = false;
+    	timeCounter.reset();
+    	timeCounter.setStopTimerOnPause(false);
+    	timeCounter.start();
+    	startTimer();
+    	wasSolverRunning = true;
+    	solverTask = new SolverTask(this);
+    	solverTask.execute();	
+	}
+
+	private void showPleaseWaitDialog() {
+		String pleaseWaitMessage;
         if (puzzle instanceof SoloPuzzle) {
         	pleaseWaitMessage = getResources().getString(R.string.please_wait_long_message);
         }
@@ -391,16 +414,7 @@ public class PuzzleActivity extends FragmentActivity
         }
 
         pleaseWaitDialog = PleaseWaitDialog.newInstance(pleaseWaitMessage);
-        pleaseWaitDialog.show(getSupportFragmentManager(), "please_wait_dialog");        
-        //showDialog(DIALOG_PLEASE_WAIT_ID);
-    	
-    	cancelSolveFlag = false;
-    	timeCounter.reset();
-    	timeCounter.setStopTimerOnPause(false);
-    	timeCounter.start();
-    	startTimer();
-    	solverTask = new SolverTask();
-    	solverTask.execute();	
+        pleaseWaitDialog.show(getSupportFragmentManager(), "please_wait_dialog");
 	}
 
 	private void doStop() {
@@ -459,6 +473,8 @@ public class PuzzleActivity extends FragmentActivity
     
     @Override
     public void onCancelButtonClicked() {
+    	wasSolverRunning = false;
+    	pleaseWaitDialog.dismiss();
         stopTimer();
         if (solverTask != null) {
             cancelSolveFlag = true;
@@ -498,7 +514,6 @@ public class PuzzleActivity extends FragmentActivity
     		score = timeCounter.getTimeSeconds();
     		stopTimer();
     		if (scoresManager.isHighScore(puzzle.getName(), score)) {
-    			//showDialog(DIALOG_HIGH_SCORE_NAME);
                 SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 String oldPlayersName = preferences.getString("players_name", "");
@@ -513,16 +528,22 @@ public class PuzzleActivity extends FragmentActivity
     	}
     }
 
-    private class SolverTask extends AsyncTask<Void, Void, MoveResult> {
+    private static class SolverTask extends AsyncTask<Void, Void, MoveResult> {
 
+    	private PuzzleActivity puzzleActivity;
+
+		public SolverTask(PuzzleActivity puzzleActivity) {
+    		this.puzzleActivity = puzzleActivity;
+    	}
+    	
 		@Override
 		protected MoveResult doInBackground(Void... arg0) {
-        	MoveResult result = puzzle.solve(false);
+        	MoveResult result = puzzleActivity.puzzle.solve(false);
 
         	while(result != MoveResult.RIDDLE_SOLVED &&
         			result != MoveResult.RIDDLE_UNSOLVABLE &&
-        			!cancelSolveFlag) {
-        		result = puzzle.solve(false);
+        			!puzzleActivity.cancelSolveFlag) {
+        		result = puzzleActivity.puzzle.solve(false);
         	}
 
 			return result;
@@ -530,11 +551,15 @@ public class PuzzleActivity extends FragmentActivity
 
 		@Override
 		protected void onPostExecute(MoveResult result) {
-			stopTimer();
-			puzzleView.invalidate();
-			updateButtons();
+			puzzleActivity.stopTimer();
+			puzzleActivity.puzzleView.invalidate();
+			puzzleActivity.updateButtons();
+			if (!puzzleActivity.cancelSolveFlag) {
+				puzzleActivity.pleaseWaitDialog.dismiss();
+				puzzleActivity.wasSolverRunning = false;
+			}
 			if (result == MoveResult.RIDDLE_UNSOLVABLE) {
-				Toast.makeText(PuzzleActivity.this,
+				Toast.makeText(puzzleActivity,
 						R.string.riddle_cant_be_solved, Toast.LENGTH_SHORT).show();
 			}
 		}
