@@ -58,7 +58,7 @@ public class PuzzleActivity extends FragmentActivity
     
     private boolean menuFocus = false;
     
-    private boolean wasSolverRunning = false;
+    private boolean resumeSolver = false;
 
 	private Runnable timerRunnable = new Runnable() {
 		@Override
@@ -251,8 +251,9 @@ public class PuzzleActivity extends FragmentActivity
     		replayHandler.removeCallbacks(replayRunnable);
     	}
     	
-    	if (wasSolverRunning) {
-    		onCancelButtonClicked();
+    	if (puzzle.isSolverRunning()) {
+    		resumeSolver = true;
+    		cancelSolving();
     	}
     }
 
@@ -268,7 +269,7 @@ public class PuzzleActivity extends FragmentActivity
     		replayHandler.postDelayed(replayRunnable , replayIntervalMs);
     	}
     	
-    	if (wasSolverRunning) {
+    	if (resumeSolver) {
     		showPleaseWaitDialog();
     	}
     }
@@ -399,7 +400,6 @@ public class PuzzleActivity extends FragmentActivity
     	timeCounter.setStopTimerOnPause(false);
     	timeCounter.start();
     	startTimer();
-    	wasSolverRunning = true;
     	solverTask = new SolverTask(this);
     	solverTask.execute();	
 	}
@@ -473,13 +473,17 @@ public class PuzzleActivity extends FragmentActivity
     
     @Override
     public void onCancelButtonClicked() {
-    	wasSolverRunning = false;
+        resumeSolver = false;
+        cancelSolving();
+    }
+    
+    private void cancelSolving() {
     	pleaseWaitDialog.dismiss();
         stopTimer();
         if (solverTask != null) {
             cancelSolveFlag = true;
             puzzle.setSolverRunning(false);
-        }    
+        }  
     }
     
     @Override
@@ -545,7 +549,9 @@ public class PuzzleActivity extends FragmentActivity
         			!puzzleActivity.cancelSolveFlag) {
         		result = puzzleActivity.puzzle.solve(false);
         	}
-
+        	if (!puzzleActivity.cancelSolveFlag) {
+        		puzzleActivity.resumeSolver = false;
+        	}
 			return result;
 		}
 
@@ -556,7 +562,6 @@ public class PuzzleActivity extends FragmentActivity
 			puzzleActivity.updateButtons();
 			if (!puzzleActivity.cancelSolveFlag) {
 				puzzleActivity.pleaseWaitDialog.dismiss();
-				puzzleActivity.wasSolverRunning = false;
 			}
 			if (result == MoveResult.RIDDLE_UNSOLVABLE) {
 				Toast.makeText(puzzleActivity,
