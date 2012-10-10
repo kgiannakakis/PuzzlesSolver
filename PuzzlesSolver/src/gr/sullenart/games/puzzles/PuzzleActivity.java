@@ -270,7 +270,7 @@ public class PuzzleActivity extends FragmentActivity
     	}
     	
     	if (resumeSolver) {
-    		showPleaseWaitDialog();
+    		doSolve();
     	}
     }
 
@@ -405,6 +405,9 @@ public class PuzzleActivity extends FragmentActivity
 	}
 
 	private void showPleaseWaitDialog() {
+		if (pleaseWaitDialog != null) {
+			return;
+		}
 		String pleaseWaitMessage;
         if (puzzle instanceof SoloPuzzle) {
         	pleaseWaitMessage = getResources().getString(R.string.please_wait_long_message);
@@ -479,6 +482,7 @@ public class PuzzleActivity extends FragmentActivity
     
     private void cancelSolving() {
     	pleaseWaitDialog.dismiss();
+    	pleaseWaitDialog = null;
         stopTimer();
         if (solverTask != null) {
             cancelSolveFlag = true;
@@ -562,6 +566,7 @@ public class PuzzleActivity extends FragmentActivity
 			puzzleActivity.updateButtons();
 			if (!puzzleActivity.cancelSolveFlag) {
 				puzzleActivity.pleaseWaitDialog.dismiss();
+				puzzleActivity.pleaseWaitDialog = null;
 			}
 			if (result == MoveResult.RIDDLE_UNSOLVABLE) {
 				Toast.makeText(puzzleActivity,
