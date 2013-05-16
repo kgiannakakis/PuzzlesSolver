@@ -2,6 +2,9 @@ package gr.sullenart.games.puzzles;
 
 import gr.sullenart.games.puzzles.dialogs.ConfirmationDialog;
 import gr.sullenart.games.puzzles.dialogs.PleaseWaitDialog;
+import gr.sullenart.games.puzzles.gameengine.LightsOutBoard;
+import gr.sullenart.games.puzzles.gameengine.LightsOutBoardFactory;
+import gr.sullenart.games.puzzles.gameengine.LightsOutPuzzle;
 import gr.sullenart.games.puzzles.gameengine.NumberSquarePuzzle;
 import gr.sullenart.games.puzzles.gameengine.Puzzle;
 import gr.sullenart.games.puzzles.gameengine.Puzzle.MoveResult;
@@ -47,7 +50,8 @@ public class PuzzleActivity extends FragmentActivity
 	private int gameType = 0;
 	private int optionResources [] = { R.xml.q8_preferences,
 									   R.xml.knights_tour_preferences,
-									   R.xml.solo_preferences} ;
+									   R.xml.solo_preferences,
+									   R.xml.lights_preferences} ;
 
 	private boolean timerIsRunning = false;
 	private Handler timerHandler;
@@ -123,6 +127,8 @@ public class PuzzleActivity extends FragmentActivity
         case 2:
         	puzzle = new SoloPuzzle(this);
         	break;
+        case 3:
+        	puzzle = new LightsOutPuzzle(this);
         }
 
         timeCounter = new TimeCounter();
@@ -210,7 +216,15 @@ public class PuzzleActivity extends FragmentActivity
     		SoloPuzzleRepository soloPuzzleRepository = 
     			new SoloPuzzleRepository(getApplicationContext());
 	    	((SoloPuzzle) puzzle).setSoloPuzzleRepository(soloPuzzleRepository);
-    	}    	
+    	}
+    	else if (puzzle instanceof LightsOutPuzzle) {
+    		LightsOutBoardFactory factory = new LightsOutBoardFactory();
+    		int sizeX = 5;
+    		int sizeY = 5;
+    		int[] board = factory.getBoard(sizeX, sizeX);
+			LightsOutBoard lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
+    		((LightsOutPuzzle) puzzle).setLightsOutBoard(lightsOutBoard);
+    	}
     	
     	if (puzzle.configure(preferences)) {
     		timeCounter.reset();
@@ -481,8 +495,10 @@ public class PuzzleActivity extends FragmentActivity
     }
     
     private void cancelSolving() {
-    	pleaseWaitDialog.dismiss();
-    	pleaseWaitDialog = null;
+    	if (pleaseWaitDialog != null) {
+    		pleaseWaitDialog.dismiss();
+    		pleaseWaitDialog = null;
+    	}
         stopTimer();
         if (solverTask != null) {
             cancelSolveFlag = true;

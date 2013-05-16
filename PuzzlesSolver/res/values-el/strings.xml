@@ -16,11 +16,13 @@
 	    <item name="queens">Βασίλισσες</item>
 	    <item name="knights_tour">Ο Γύρος του Ιππότη</item>
 	    <item name="solo">Σόλο</item>
+	    <item name="lights">Φώτα</item>
     </string-array>
     
 	<string name="queens">Βασίλισσες</string>
 	<string name="knights_tour">Ο Γύρος του Ιππότη</string>
-	<string name="solo">Σόλο</string>         
+	<string name="solo">Σόλο</string>        
+	<string name="lights">Φώτα</string> 
 
     <string name="puzzles">Γρίφοι</string>
     <string name="scores">Σκορ</string>

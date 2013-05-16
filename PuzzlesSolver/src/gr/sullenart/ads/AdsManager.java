@@ -13,8 +13,11 @@ import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
 public class AdsManager implements AdListener {
-	private String publisherId = "";
+	//private String publisherId = "a14dcd0326c299a";
 
+	private String publisherId = "a15165a4b86d258";  // SlideME
+	
+	
 	public void addAdsView(Activity activity, LinearLayout layout) {
         AdView adView;
         int screenLayout = activity.getResources().getConfiguration().screenLayout;

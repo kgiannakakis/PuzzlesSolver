@@ -16,11 +16,13 @@
         <item name="queens">Damen</item>
         <item name="knights_tour">Springerproblem</item>
         <item name="solo">Solitär</item>
+        <item name="lights">Lichten</item>
     </string-array>
 
 	<string name="queens">Damen</string>
 	<string name="knights_tour">Springerproblem</string>
-	<string name="solo">Solitär</string>        
+	<string name="solo">Solitär</string>   
+	<string name="lights">Lichten</string>     
         
     <string name="puzzles">Rätsel</string>
     <string name="scores">Scores</string>

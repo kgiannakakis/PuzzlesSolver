@@ -16,5 +16,10 @@
               android:text="@string/solo"
               android:drawableLeft="@drawable/icon_solo"
               android:gravity="center_vertical"
-              style="@style/GameSelectorText"/>              
+              style="@style/GameSelectorText"/>
+    <TextView android:id="@+id/lights_select"
+              android:text="@string/lights"
+              android:drawableLeft="@drawable/icon_lights"
+              android:gravity="center_vertical"
+              style="@style/GameSelectorText"/>                  
 </LinearLayout>

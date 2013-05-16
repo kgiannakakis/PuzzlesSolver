@@ -114,6 +114,7 @@ public class PuzzlesCollection extends FragmentActivity {
 		gameButtonsMap.put(layout.findViewById(R.id.queens_select), i++);
 		gameButtonsMap.put(layout.findViewById(R.id.knights_tour_select), i++);
 		gameButtonsMap.put(layout.findViewById(R.id.solo_select), i++);
+		gameButtonsMap.put(layout.findViewById(R.id.lights_select), i++);
 		
 		OnClickListener clickListener = new OnClickListener() {
 			@Override

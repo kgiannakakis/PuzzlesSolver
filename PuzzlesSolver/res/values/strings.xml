@@ -16,11 +16,13 @@
 	    <item name="queens">Queens</item>
 	    <item name="knights_tour">Knight\'s Tour</item>
 	    <item name="solo">Solo</item>
+	    <item name="lights">Lights out</item>
     </string-array>
 
 	<string name="queens">Queens</string>
 	<string name="knights_tour">Knight\'s Tour</string>
 	<string name="solo">Solo</string>
+	<string name="lights">Lights out</string>
         
     <string name="puzzles">Puzzles</string>
     <string name="scores">Scores</string>

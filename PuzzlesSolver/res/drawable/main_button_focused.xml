@@ -3,9 +3,8 @@
 	<corners android:radius="5dp"
            	 android:bottomLeftRadius="5dp"
              android:bottomRightRadius="5dp"/>
-  	<gradient android:type="radial"
-  	          android:gradientRadius="326"
-  	          android:startColor="#E0E08C06"
-  	          android:centerColor="#E0DDA344"
-		      android:endColor="#E0DDA344" />
+  	<gradient android:angle="270"
+  	          android:startColor="#FF338594"
+		      android:endColor="#FF004d5b" />
+  	<stroke android:width="2dp" android:color="#FF004d5b" />
 </shape>
