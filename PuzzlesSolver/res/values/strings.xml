@@ -56,7 +56,9 @@ backtracking algorithms. For certain puzzles it may take too long, before a solu
 	<string name="q8_puzzle_options">8 Queens Options</string>
 	<string name="knight_tour_puzzle_options">Knight\'s Tour Options</string>
 	<string name="solo_puzzle_options">Solo Options</string>
-
+    <string name="lights_puzzle_options">Lights Options</string>
+	
+	
 	<string name="board_size">Board Size</string>
 	<string name="reentrant">Reentrant</string>
 	<string name="knights_moves_only">Knight\'s moves only</string>
@@ -79,7 +81,12 @@ backtracking algorithms. For certain puzzles it may take too long, before a solu
 	<string name="theme_summary">Select the display theme</string>
 	<string name="puzzle_type">Puzzle type</string>
 	<string name="puzzle_type_summary">Select the puzzle type</string>
-
+	
+	<string name="rows">Rows</string>
+	<string name="rows_summary">Select the number of rows</string>
+	<string name="columns">Columns</string>
+	<string name="columns_summary">Select the number of columns</string>
+	
     <string-array name="q8_board_sizes">
     	<item>4</item>
         <item>5</item>
@@ -168,6 +175,16 @@ backtracking algorithms. For certain puzzles it may take too long, before a solu
         <item>3</item>
     </string-array>    
 
+    <string-array name="lights_sizes">
+    	<item>3</item>
+    	<item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>    
+    
 	<string name="solved_in_seconds">Solved in %%d seconds!</string>
 
 	<string name="custom_boards">Custom boards</string>

@@ -58,6 +58,7 @@
     <string name="q8_puzzle_options">8 Damen Optionen</string>
     <string name="knight_tour_puzzle_options">Springerproblem Optionen</string>
     <string name="solo_puzzle_options">Solitär Optionen</string>
+    <string name="lights_puzzle_options">Lichten Optionen</string>
 
     <string name="board_size">Brettgröße</string>
     <string name="reentrant">Geschlossen</string>
@@ -73,7 +74,7 @@
     <string name="no_more_moves">Es gibt keine Züge mehr zur Verfügung. Annullieren oder neu starten.</string>
 
     <string name="board_size_summary">Konfigurieren Sie die Brettgröße</string>
-    <string name="reentrant_summary">Wählen Sie ob der Springer in die Ausgangsposition zurückkommen muß.</string>
+    <string name="reentrant_summary">Wählen Sie ob der Springer in die Ausgangsposition zurückkommen muss.</string>
     <string name="knights_moves_only_summary">Wählen Sie ob der Springer 3 Positionen in der gleichen Zeile oder Spalte sich bewegen kann.</string>
     <string name="show_numbers_summary">Wählen Sie, ob Zahlen gezeichnet werden</string>
     <string name="line_size_summary">Wählen Sie die Liniengröße</string>
@@ -82,6 +83,11 @@
     <string name="puzzle_type">Rätsel Typ</string>
     <string name="puzzle_type_summary">Wählen Sie das Rätsel Typ</string>
 
+	<string name="rows">Rows</string>
+	<string name="rows_summary">Select the number of rows</string>
+	<string name="columns">Columns</string>
+	<string name="columns_summary">Select the number of columns</string>    
+    
     <string-array name="q8_board_sizes">
         <item>4</item>
         <item>5</item>
@@ -192,6 +198,16 @@
         <item>8</item>
         <item>9</item>
     </string-array>
+    
+    <string-array name="lights_sizes">
+    	<item>3</item>
+    	<item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>        
 
     <string name="target_position">Zielposition</string>
     <string name="target_position_summary">Wählen Sie, wenn es erforderlich ist, um in einer bestimmten Position ins Ziel kommen werden</string>    

@@ -57,6 +57,7 @@
 	<string name="q8_puzzle_options">8 Βασίλισσες - Επιλογές</string>
 	<string name="knight_tour_puzzle_options">Ο γύρος με το άλογο - Επιλογές</string>
 	<string name="solo_puzzle_options">Σόλο - Επιλογές</string>
+	<string name="lights_puzzle_options">Φώτα - Επιλογές</string>
 
 	<string name="board_size">Μέγεθος σκακιέρας</string>
 	<string name="reentrant">Κλειστός γύρος</string>
@@ -81,6 +82,11 @@
 	<string name="puzzle_type">Επιλογή γρίφου</string>
 	<string name="puzzle_type_summary">Επιλέξτε το γρίφο που θα παίξετε</string>
 
+	<string name="rows">Σειρές</string>
+	<string name="rows_summary">Επιλέξτε τον αριθμό των σειρών</string>
+	<string name="columns">Στήλες</string>
+	<string name="columns_summary">Επιλέξτε τον αριθμό των στηλών</string>	
+	
     <string-array name="q8_board_sizes">
     	<item>4</item>
         <item>5</item>
@@ -192,6 +198,16 @@
         <item>9</item>
     </string-array>
 
+    <string-array name="lights_sizes">
+    	<item>3</item>
+    	<item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>        
+    
     <string name="target_position">Θέση Τερματισμού</string>
     <string name="target_position_summary">Επιλέξτε αν θα απαιτείται να τερματίσετε σε συγκεκριμένη θέση</string>    
     

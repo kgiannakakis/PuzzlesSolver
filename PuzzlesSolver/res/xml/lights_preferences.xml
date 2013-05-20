@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <PreferenceCategory android:title="@string/lights_puzzle_options">
+        <ListPreference android:title="@string/rows"
+                        android:summary="@string/rows_summary"
+                        android:entries="@array/lights_sizes"
+                        android:entryValues="@array/lights_sizes"
+                        android:defaultValue="5"
+                        android:key="Lights_Rows"></ListPreference>
+        <ListPreference android:title="@string/columns"
+                        android:summary="@string/columns_summary"
+                        android:entries="@array/lights_sizes"
+                        android:entryValues="@array/lights_sizes"
+                        android:defaultValue="5"
+                        android:key="Lights_Columns"></ListPreference>        
+    </PreferenceCategory>
 </PreferenceScreen>
 
