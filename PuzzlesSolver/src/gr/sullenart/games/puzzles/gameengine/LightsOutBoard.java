@@ -76,5 +76,56 @@ public class LightsOutBoard {
     public int getLightState(int r, int c) {
         return board[r*sizeX + c];
     }
+    
+    public String serialize() {
+    	StringBuilder builder = new StringBuilder();
+    	
+    	builder.append(String.format("%02d%02d", sizeX, sizeY));
+    	for(int i=0;i<board.length;i++) {
+    		builder.append(String.valueOf(board[i]));
+    	}
+    	
+    	return builder.toString();
+    }
+    
+    public static LightsOutBoard deserialize(String lightsOutBoardStr) {
+    	int sizeX = 0;
+    	int sizeY = 0;
+    	
+    	if (lightsOutBoardStr == null || lightsOutBoardStr.length() < 4) {
+    		return null;
+    	}
+    	
+    	try {
+    		sizeX = Integer.parseInt(lightsOutBoardStr.substring(0, 2));
+    		sizeY = Integer.parseInt(lightsOutBoardStr.substring(2, 4));
+    	}
+		catch(NumberFormatException e) {
+			return null;
+		}    	
+    	
+		int boardSize = sizeX*sizeY;
+		if (lightsOutBoardStr.length() != boardSize + 4) {
+			return null;
+		}
+		
+		int [] board = new int[boardSize];
+		
+		int start = 4;
+		for(int i=0; i< boardSize; i++) {
+	    	try {
+	    		board[i] = Integer.parseInt(lightsOutBoardStr.substring(start, start+1));
+	    		start++;
+	    	}
+			catch(NumberFormatException e) {
+				return null;
+			}  			
+			if (board[i] > 1) {
+				return null;
+			}
+		}
+		
+    	return new LightsOutBoard(sizeX, sizeY, board);
+    }
 
 }

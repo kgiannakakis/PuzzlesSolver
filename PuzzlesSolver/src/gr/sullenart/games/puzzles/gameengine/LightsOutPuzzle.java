@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
+import android.util.Log;
 
 /**
  * LightsOutPuzzle Class. The player must switch off all lights.
@@ -81,7 +82,7 @@ public class LightsOutPuzzle extends Puzzle
     		int sizeX = boardColumnCount;
     		int sizeY = boardRowCount;
     		int[] board = factory.getBoard(sizeX, sizeX);
-			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);			
+			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
 		}
 		
 		return result;
