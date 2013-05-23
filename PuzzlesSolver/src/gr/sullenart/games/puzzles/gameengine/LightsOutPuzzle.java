@@ -11,7 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
-import android.util.Log;
+import android.preference.PreferenceManager;
 
 /**
  * LightsOutPuzzle Class. The player must switch off all lights.
@@ -36,6 +36,8 @@ public class LightsOutPuzzle extends Puzzle
 	
 	private int boardColumnCount = 5;
     
+	private String boardKey = "Lights_Board";
+	
     /** Setter of lightsOutBoard
     * @param lightsOutBoard The board to play
     */
@@ -45,8 +47,24 @@ public class LightsOutPuzzle extends Puzzle
     
 	public LightsOutPuzzle(Context context) {
 		super(context);
-		family = "Q8Puzzle";
-		name = context.getResources().getString(R.string.lights);
+		family = "Lights";
+		
+        SharedPreferences preferences =
+    		PreferenceManager.getDefaultSharedPreferences(context);		
+		String rowsStr = preferences.getString("Lights_Rows", null);
+		String columnsStr = preferences.getString("Lights_Columns", null);
+		if (rowsStr != null && columnsStr != null) {
+			try {
+				boardRowCount = Integer.parseInt(rowsStr);
+				boardColumnCount = Integer.parseInt(columnsStr);
+			}
+			catch(NumberFormatException ex) {
+				
+			}
+		}
+		
+		name = context.getResources().getString(R.string.lights) + " " +
+				boardRowCount + "x" + boardColumnCount;
 	}
 
 	/**
@@ -56,6 +74,11 @@ public class LightsOutPuzzle extends Puzzle
 	 */
 	public boolean configure(SharedPreferences preferences) {
 		boolean result = false;
+		
+		String boardStr = preferences.getString(boardKey, null);
+		if (boardStr != null) {
+			lightsOutBoard = LightsOutBoard.deserialize(boardStr);
+		}
 		
 		String rowsStr = preferences.getString("Lights_Rows", null);
 		String columnsStr = preferences.getString("Lights_Columns", null);
@@ -77,15 +100,28 @@ public class LightsOutPuzzle extends Puzzle
 			}
 		}
 		
-		if (lightsOutBoard == null || result == true) {
+		if (lightsOutBoard == null || lightsOutBoard.isSolved() || result == true) {
     		LightsOutBoardFactory factory = new LightsOutBoardFactory();
     		int sizeX = boardColumnCount;
     		int sizeY = boardRowCount;
-    		int[] board = factory.getBoard(sizeX, sizeX);
+    		int[] board = factory.getBoard(sizeX, sizeY);
 			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public void storeState() {
+		if (lightsOutBoard != null) {
+			String str = lightsOutBoard.serialize();
+			
+	        SharedPreferences preferences =
+	    		PreferenceManager.getDefaultSharedPreferences(context);        
+	        SharedPreferences.Editor editor = preferences.edit();
+	        editor.putString(boardKey, str);
+	        editor.commit();  			
+		}
 	}
 
 	public void onSizeChanged(int w, int h) {
@@ -270,6 +306,9 @@ public class LightsOutPuzzle extends Puzzle
 	 * @return true if the puzzle is solved.
 	 */
     public boolean isSolved() {
+    	if (lightsOutBoard != null) {
+    		return lightsOutBoard.isSolved();
+    	}
         return false;
     }
 

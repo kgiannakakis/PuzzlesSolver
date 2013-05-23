@@ -41,8 +41,10 @@ public class LightsOutBoard {
         this.sizeY = sizeY;
         this.board = board;
         lightsOnCount = 0;
-        for(int i=0; i<board.length; i++) {
-            lightsOnCount += board[i];
+        while (lightsOnCount == 0) {
+	        for(int i=0; i<board.length; i++) {
+	            lightsOnCount += board[i];
+	        }
         }
     }
     

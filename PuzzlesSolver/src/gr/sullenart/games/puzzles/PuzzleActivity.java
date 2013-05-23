@@ -228,7 +228,8 @@ public class PuzzleActivity extends FragmentActivity
 				puzzle.isStarted() && !puzzle.isSolved() &&
 				!puzzle.isSolverRunning() ) {
     		timeCounter.pause();
-    		puzzleView.setPaused(true);				
+    		puzzleView.setPaused(true);	
+    		puzzle.storeState();
 		}			
 	}
 	
