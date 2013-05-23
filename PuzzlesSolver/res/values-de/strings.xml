@@ -83,10 +83,10 @@
     <string name="puzzle_type">Rätsel Typ</string>
     <string name="puzzle_type_summary">Wählen Sie das Rätsel Typ</string>
 
-	<string name="rows">Rows</string>
-	<string name="rows_summary">Select the number of rows</string>
-	<string name="columns">Columns</string>
-	<string name="columns_summary">Select the number of columns</string>    
+	<string name="rows">Zeilen</string>
+	<string name="rows_summary">Wählen Sie die Anzahl der Zeilen</string>
+	<string name="columns">Spalten</string>
+	<string name="columns_summary">Wählen Sie die Anzahl der Spalten</string>    
     
     <string-array name="q8_board_sizes">
         <item>4</item>

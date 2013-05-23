@@ -2,8 +2,6 @@ package gr.sullenart.games.puzzles;
 
 import gr.sullenart.games.puzzles.dialogs.ConfirmationDialog;
 import gr.sullenart.games.puzzles.dialogs.PleaseWaitDialog;
-import gr.sullenart.games.puzzles.gameengine.LightsOutBoard;
-import gr.sullenart.games.puzzles.gameengine.LightsOutBoardFactory;
 import gr.sullenart.games.puzzles.gameengine.LightsOutPuzzle;
 import gr.sullenart.games.puzzles.gameengine.NumberSquarePuzzle;
 import gr.sullenart.games.puzzles.gameengine.Puzzle;
@@ -216,14 +214,6 @@ public class PuzzleActivity extends FragmentActivity
     		SoloPuzzleRepository soloPuzzleRepository = 
     			new SoloPuzzleRepository(getApplicationContext());
 	    	((SoloPuzzle) puzzle).setSoloPuzzleRepository(soloPuzzleRepository);
-    	}
-    	else if (puzzle instanceof LightsOutPuzzle) {
-    		LightsOutBoardFactory factory = new LightsOutBoardFactory();
-    		int sizeX = 5;
-    		int sizeY = 5;
-    		int[] board = factory.getBoard(sizeX, sizeX);
-			LightsOutBoard lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
-    		((LightsOutPuzzle) puzzle).setLightsOutBoard(lightsOutBoard);
     	}
     	
     	if (puzzle.configure(preferences)) {

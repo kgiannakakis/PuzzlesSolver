@@ -31,7 +31,9 @@ public class LightsOutPuzzle extends Puzzle
     /** List for storing moves made */
     private List<Integer> movesList;
 
-	private int boardSize = 5;
+	private int boardRowCount = 5;
+	
+	private int boardColumnCount = 5;
     
     /** Setter of lightsOutBoard
     * @param lightsOutBoard The board to play
@@ -52,23 +54,37 @@ public class LightsOutPuzzle extends Puzzle
 	 * @param options Options string.
 	 */
 	public boolean configure(SharedPreferences preferences) {
-		/*String boardSizeStr = preferences.getString("Q8_Board_Size", null);
-		if (boardSizeStr == null) {
-			return false;
-		}
-		try {
-			int newBoardSize = Integer.parseInt(boardSizeStr);
-			if (newBoardSize != boardSize) {
-				boardSize = newBoardSize;
-				onSizeChanged(screenWidth, screenHeight);
-				init();
-				return true;
+		boolean result = false;
+		
+		String rowsStr = preferences.getString("Lights_Rows", null);
+		String columnsStr = preferences.getString("Lights_Columns", null);
+		if (rowsStr != null && columnsStr != null) {
+			try {
+				int newBoardRowCount = Integer.parseInt(rowsStr);
+				int newBoardColumnCount = Integer.parseInt(columnsStr);
+				if (newBoardRowCount != boardRowCount ||
+						newBoardColumnCount != boardColumnCount) {
+					boardRowCount = newBoardRowCount;
+					boardColumnCount = newBoardColumnCount;
+					onSizeChanged(screenWidth, screenHeight);
+					init();
+					result = true;
+				}
+			}
+			catch(NumberFormatException e) {
+	
 			}
 		}
-		catch(NumberFormatException e) {
-
-		}*/
-		return false;
+		
+		if (lightsOutBoard == null || result == true) {
+    		LightsOutBoardFactory factory = new LightsOutBoardFactory();
+    		int sizeX = boardColumnCount;
+    		int sizeY = boardRowCount;
+    		int[] board = factory.getBoard(sizeX, sizeX);
+			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);			
+		}
+		
+		return result;
 	}
 
 	public void onSizeChanged(int w, int h) {
@@ -78,8 +94,8 @@ public class LightsOutPuzzle extends Puzzle
 			return;
 		}
 
-        int sizeX = lightsOutBoard.getSizeX();
-        int sizeY = lightsOutBoard.getSizeY();
+        int sizeX = boardColumnCount;
+        int sizeY = boardRowCount;
         int squareWidthX = (w - 10) / sizeX;
         int squareWidthY = (h - 10) / sizeY;
         
@@ -96,7 +112,7 @@ public class LightsOutPuzzle extends Puzzle
      */
     @Override
 	public void init() {
-        movesTableSize = boardSize;
+        movesTableSize = boardRowCount * boardColumnCount;
         super.init();
         name = context.getResources().getString(R.string.lights);
         movesMade = 0;
