@@ -436,7 +436,7 @@ public class PuzzleActivity extends FragmentActivity
     	stopTimer();
     	isSolverUsed = false;
     	timeCounter.reset();
-    	puzzle.init();
+    	puzzle.restart();
     	puzzleView.invalidate();
         updateButtons();
 	}

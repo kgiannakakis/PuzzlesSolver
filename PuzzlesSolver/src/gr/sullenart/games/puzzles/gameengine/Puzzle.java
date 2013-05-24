@@ -443,4 +443,11 @@ public abstract class Puzzle {
     	
     }
 
+    /**
+     * Restarts the puzzle
+     */
+    public void restart() {
+    	init();
+    }
+    
 }

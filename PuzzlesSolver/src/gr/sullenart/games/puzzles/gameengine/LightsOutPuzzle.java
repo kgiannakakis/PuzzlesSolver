@@ -37,6 +37,8 @@ public class LightsOutPuzzle extends Puzzle
 	private int boardColumnCount = 5;
     
 	private String boardKey = "Lights_Board";
+
+	private int[] initialBoard = null;
 	
     /** Setter of lightsOutBoard
     * @param lightsOutBoard The board to play
@@ -108,7 +110,23 @@ public class LightsOutPuzzle extends Puzzle
 			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
 		}
 		
+		initialBoard = new int[lightsOutBoard.getBoard().length];
+		System.arraycopy(lightsOutBoard.getBoard(), 0, 
+						 initialBoard, 0, initialBoard.length);
+		
 		return result;
+	}
+	
+	@Override
+	public void restart() {
+		init();
+		if (initialBoard != null) {
+			int [] newBoard = new int [initialBoard.length];
+			System.arraycopy(initialBoard, 0, 
+					newBoard, 0, initialBoard.length);
+			lightsOutBoard = new LightsOutBoard(boardColumnCount, 
+										boardRowCount, newBoard);
+		}
 	}
 	
 	@Override
@@ -149,7 +167,6 @@ public class LightsOutPuzzle extends Puzzle
      */
     @Override
 	public void init() {
-        movesTableSize = boardRowCount * boardColumnCount;
         super.init();
         name = context.getResources().getString(R.string.lights);
         movesMade = 0;
