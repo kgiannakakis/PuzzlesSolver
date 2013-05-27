@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
+import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -246,9 +246,6 @@ public class LightsOutPuzzle extends Puzzle
     
     /** Gradient used to paint an Off light */
     private GradientDrawable offGradient;
-
-    /** Paint for drawing solution cell */
-	private Paint solutionPaint;
     
     /**
     * Initializes graphics objects
@@ -257,7 +254,7 @@ public class LightsOutPuzzle extends Puzzle
         int [] colorsBackground = {0xFF006600, 0xFF008800};
 		int[] colorsOn = {0xFFebf4d3, 0xFFd7e9a8, 0xFF9cc925, 0xFF7ba60d, 0xFF5d8005, 0xFF49811f};
         int[] colorsOff = {0xFFd2e7d2, 0xFFa4cfa4, 0xFF1c881c, 0xFF156615, 0xFF0e440e, 0xFFffffff};
-
+        
 		backgroundGradient = new GradientDrawable(Orientation.BOTTOM_TOP, colorsBackground);
     	backgroundGradient.setGradientType(GradientDrawable.RADIAL_GRADIENT);
     	backgroundGradient.setGradientRadius(180);
@@ -271,11 +268,7 @@ public class LightsOutPuzzle extends Puzzle
 		offGradient = new GradientDrawable(Orientation.BOTTOM_TOP, colorsOff);
     	offGradient.setGradientType(GradientDrawable.RADIAL_GRADIENT);
     	offGradient.setGradientRadius(270);
-    	offGradient.setDither(true);
-    	
-    	solutionPaint = new Paint();
-    	solutionPaint.setStyle(Style.FILL_AND_STROKE);
-    	solutionPaint.setColor(0xFFFF0000);
+    	offGradient.setDither(true);	
     }
     
 	/**
@@ -312,8 +305,18 @@ public class LightsOutPuzzle extends Puzzle
                 int pos = row*sizeX+column;
 				int solutionVal = lightsOutBoard.getSolution()[pos];
 				if (solutionVal > 0) {
+					RadialGradient gradient = new RadialGradient(
+							left+squareWidth/2, 
+							top+squareWidth/2, 
+							squareWidth/4, 
+							0xFFFF0000,
+				            0xFF660000, 
+				            android.graphics.Shader.TileMode.CLAMP);
+					Paint solutionsPaint = new Paint();
+				    solutionsPaint.setDither(true);
+				    solutionsPaint.setShader(gradient);							
 					canvas.drawCircle(left+squareWidth/2, top+squareWidth/2, 
-							squareWidth/3, solutionPaint);
+							squareWidth/4, solutionsPaint);
 				}
 				
 			}
