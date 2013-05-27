@@ -1,6 +1,9 @@
 package gr.sullenart.games.puzzles.gameengine;
 
 import gr.sullenart.games.puzzles.R;
+import gr.sullenart.games.puzzles.gameengine.lights.LightsOutBoard;
+import gr.sullenart.games.puzzles.gameengine.lights.LightsOutBoardFactory;
+import gr.sullenart.games.puzzles.gameengine.lights.LightsOutSolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -49,6 +54,7 @@ public class LightsOutPuzzle extends Puzzle
     
 	public LightsOutPuzzle(Context context) {
 		super(context);
+		enableReplay = false;
 		family = "Lights";
 		
         SharedPreferences preferences =
@@ -240,6 +246,9 @@ public class LightsOutPuzzle extends Puzzle
     
     /** Gradient used to paint an Off light */
     private GradientDrawable offGradient;
+
+    /** Paint for drawing solution cell */
+	private Paint solutionPaint;
     
     /**
     * Initializes graphics objects
@@ -263,6 +272,10 @@ public class LightsOutPuzzle extends Puzzle
     	offGradient.setGradientType(GradientDrawable.RADIAL_GRADIENT);
     	offGradient.setGradientRadius(270);
     	offGradient.setDither(true);
+    	
+    	solutionPaint = new Paint();
+    	solutionPaint.setStyle(Style.FILL_AND_STROKE);
+    	solutionPaint.setColor(0xFFFF0000);
     }
     
 	/**
@@ -295,6 +308,14 @@ public class LightsOutPuzzle extends Puzzle
                     offGradient.setBounds(cb);
                     offGradient.draw(canvas);                
                 }
+                
+                int pos = row*sizeX+column;
+				int solutionVal = lightsOutBoard.getSolution()[pos];
+				if (solutionVal > 0) {
+					canvas.drawCircle(left+squareWidth/2, top+squareWidth/2, 
+							squareWidth/3, solutionPaint);
+				}
+				
 			}
 		}
     }
@@ -360,9 +381,18 @@ public class LightsOutPuzzle extends Puzzle
     }
 
 	@Override
-	public boolean areMovesLeft() {
-		// TODO Auto-generated method stub
+	public boolean areNoMoreMovesLeft() {
 		return false;
+	}
+	
+	@Override
+	public MoveResult solve(boolean auto) {
+		LightsOutSolver solver = new LightsOutSolver(lightsOutBoard, 2, 0);
+		boolean result = solver.solve();
+		if (result) {
+			return MoveResult.RIDDLE_SOLVED;
+		}
+		return MoveResult.RIDDLE_UNSOLVABLE;
 	}
 }
 

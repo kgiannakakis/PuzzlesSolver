@@ -434,7 +434,7 @@ public abstract class Puzzle {
      *
      * @return true if there are no more moves left.
      */ 
-    abstract public boolean areMovesLeft();
+    abstract public boolean areNoMoreMovesLeft();
     
     /**
      * Stores the state of the puzzle

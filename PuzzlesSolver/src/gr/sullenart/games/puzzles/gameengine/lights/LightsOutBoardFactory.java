@@ -1,4 +1,4 @@
-package gr.sullenart.games.puzzles.gameengine;
+package gr.sullenart.games.puzzles.gameengine.lights;
 import java.util.Random;
 
 public class LightsOutBoardFactory {

@@ -903,7 +903,7 @@ public class NumberSquarePuzzle extends Puzzle {
     }
 
 	@Override
-	public boolean areMovesLeft() {
+	public boolean areNoMoreMovesLeft() {
 		if (isSolved()) {
 			return false;
 		}

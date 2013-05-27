@@ -362,7 +362,7 @@ public class Q8Puzzle extends Puzzle
     }
 
 	@Override
-	public boolean areMovesLeft() {
+	public boolean areNoMoreMovesLeft() {
 		if (isSolved()) {
 			return false;
 		}

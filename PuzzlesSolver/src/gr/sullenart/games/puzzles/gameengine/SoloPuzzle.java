@@ -623,7 +623,7 @@ public class SoloPuzzle extends Puzzle {
 		return(true);
 	}
     
-    public boolean areMovesLeft() {
+    public boolean areNoMoreMovesLeft() {
     	if (soloBoard == null) {
     		return false;
     	}    	

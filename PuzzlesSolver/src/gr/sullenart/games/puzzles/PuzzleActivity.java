@@ -383,7 +383,7 @@ public class PuzzleActivity extends FragmentActivity
     	customBoardsButton.setVisibility(isCustomBoardsVisible() ?
     									 View.VISIBLE : View.GONE);
     	
-    	noMoreMovesMessage.setVisibility(puzzle.areMovesLeft() && !puzzle.isSolverRunning() ? 
+    	noMoreMovesMessage.setVisibility(puzzle.areNoMoreMovesLeft() && !puzzle.isSolverRunning() ? 
     									 View.VISIBLE : View.GONE) ;
     }
     

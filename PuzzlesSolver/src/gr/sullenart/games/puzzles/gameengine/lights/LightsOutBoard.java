@@ -1,4 +1,4 @@
-package gr.sullenart.games.puzzles.gameengine;
+package gr.sullenart.games.puzzles.gameengine.lights;
 
 
 public class LightsOutBoard {
@@ -12,6 +12,8 @@ public class LightsOutBoard {
 
     private int [] board;
     
+    private int [] solution;
+    
     public int getSizeX() {
         return sizeX;
     }
@@ -24,7 +26,15 @@ public class LightsOutBoard {
         return board;
     }
     
-    private int lightsOnCount;
+    public int[] getSolution() {
+		return solution;
+	}
+
+	public void setSolution(int[] solution) {
+		this.solution = solution;
+	}
+	
+	private int lightsOnCount;
 
     /*
       ---------- size x ----------
@@ -41,9 +51,13 @@ public class LightsOutBoard {
         this.sizeY = sizeY;
         this.board = board;
         lightsOnCount = 0;
+        
+        solution = new int [board.length];
+        
         while (lightsOnCount == 0) {
 	        for(int i=0; i<board.length; i++) {
 	            lightsOnCount += board[i];
+	            solution[i] = 0;
 	        }
         }
     }
@@ -52,6 +66,10 @@ public class LightsOutBoard {
         int i = r*sizeX + c;
         
         board[i] ^= 1;
+        if (solution[i] > 0) {
+        	solution[i]--;
+        }
+        
         lightsOnCount += board[i] == 1 ? 1 : -1;
         if (r > 0) {
             board[i - sizeX] ^= 1;    
