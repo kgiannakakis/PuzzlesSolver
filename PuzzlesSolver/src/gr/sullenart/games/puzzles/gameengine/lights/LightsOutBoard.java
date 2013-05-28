@@ -75,7 +75,7 @@ public class LightsOutBoard {
             board[i - sizeX] ^= 1;    
             lightsOnCount += board[i - sizeX] == 1 ? 1 : -1;
         }
-        if (r < sizeY - 2) {
+        if (r < sizeY - 1) {
             board[i + sizeX] ^= 1;    
             lightsOnCount += board[i + sizeX] == 1 ? 1 : -1;
         }
@@ -83,7 +83,7 @@ public class LightsOutBoard {
             board[i - 1] ^= 1;    
             lightsOnCount += board[i - 1] == 1 ? 1 : -1;
         }
-        if (c < sizeX - 2) {
+        if (c < sizeX - 1) {
             board[i + 1] ^= 1;    
             lightsOnCount += board[i + 1] == 1 ? 1 : -1;
         }        
@@ -91,6 +91,18 @@ public class LightsOutBoard {
     
     public boolean isSolved() {
         return lightsOnCount == 0;
+    }
+    
+    public boolean isSolutionVisible() {
+    	if (solution == null) {
+    		return false;
+    	}
+    	for(int i=0; i<solution.length;i++) {
+    		if (solution[i] > 0) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     public int getLightState(int r, int c) {

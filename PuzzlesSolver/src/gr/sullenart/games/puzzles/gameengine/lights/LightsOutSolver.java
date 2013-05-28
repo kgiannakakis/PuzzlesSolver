@@ -1,10 +1,13 @@
 package gr.sullenart.games.puzzles.gameengine.lights;
 
+
+
 public class LightsOutSolver {
 	 
     private LightsOutBoard lightsOutBoard;
     private int colorsCount;
-    private int endColor;
+    @SuppressWarnings("unused")
+	private int endColor;
 
     public LightsOutSolver(LightsOutBoard lightsOutBoard,
                            int colorsCount,
@@ -17,10 +20,7 @@ public class LightsOutSolver {
     }
   
     public boolean solve() {
-        for(int i=0; i<lightsOutBoard.getSolution().length;i++) {
-            lightsOutBoard.getSolution()[i] = i % 2;
-        }
-        return true;
+        return doSolve();
     }   
    
  
@@ -105,8 +105,7 @@ public class LightsOutSolver {
                             value = a(j,n);
                         else
                             value = 0;
-                        //TODO: set solution col,row := value
-                        //setanscellimage(col,row,nums[value]);
+                        lightsOutBoard.getSolution()[row * colcount + col] = value;
                     }
                 }
                 return true;
@@ -117,11 +116,11 @@ public class LightsOutSolver {
 
     private void initMatrix() {
         maxr = Math.min(m,n);
-        mat = new int [colcount][];
+        mat = new int [colcount*rowcount][];
         for (int col = 0; col < colcount; col++) {
             for (int row = 0; row < rowcount; row++) {
                 int i = row * colcount + col;
-                int [] line = new int[n];
+                int [] line = new int[colcount*rowcount + 1];
                 mat[i] = line;
                 for (int j = 0; j < n; j++) line[j] = 0;
                 line[i] = 1;
@@ -142,10 +141,12 @@ public class LightsOutSolver {
         n = size;
         np = n + 1;
         initMatrix();
-        //TODO:
-        //for (int col = 0; col < colcount; col++)
-        //for (int row = 0; row < rowcount; row++)
-        //    mat[row * colcount + col][n] = modulate(goal - cells[col][row]);
+        for (int col = 0; col < colcount; col++) {
+        	for (int row = 0; row < rowcount; row++) {
+        		mat[row * colcount + col][n] = 
+        			modulate(goal - cells[row * colcount + col]);
+        	}
+        }
         return sweep();
     }   
    
@@ -210,10 +211,15 @@ public class LightsOutSolver {
         array[x] = array[y];
         array[y] = tmp;
     }
-   
+
+    private void swap2(int [][] array, int x, int y) {
+        int [] tmp  = array[x];
+        array[x] = array[y];
+        array[y] = tmp;
+    }    
+    
     private void doBasicSweep(int pivoti, int pivotj) {
-    	//TODO:
-    	//if (r != pivoti) swap(mat,r,pivoti);
+    	if (r != pivoti) swap2(mat,r,pivoti);
         if (r != pivotj) swap(cols,r,pivotj);
         for (int i = 0; i < m; i++) {
             if (i != r) {

@@ -124,6 +124,12 @@ public class LightsOutPuzzle extends Puzzle
 	}
 	
 	@Override
+	public boolean isUndoPermitted() {
+		return movesList.size() > 0 &&
+			!lightsOutBoard.isSolutionVisible();
+	}	
+	
+	@Override
 	public void restart() {
 		init();
 		if (initialBoard != null) {
