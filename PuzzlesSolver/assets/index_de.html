@@ -36,8 +36,15 @@
   <body>
   <div class="mainframe">
     <h1>Rätsel Lösen</h1>
+    
+	<ul>
+    	<li><a href="#queens">Acht Damen</a></li>
+    	<li><a href="#knight">Springerproblem</a></li>
+    	<li><a href="#solo">Solitär</a></li>
+    	<li><a href="#lights">Lights Out</a></li>
+	</ul>    
 
-    <h2>Acht Damen</h2>
+    <h2 id="queens">Acht Damen</h2>
     <p>In diesem klassischen Spiel muß man 8 Damen auf dem Schachbrett legen, 
 	   ohne daß eine Königin eine andere angreift. 
 	   Tippen Sie auf ein Quadrat, um eine Dame zu legen. 
@@ -52,7 +59,7 @@
        Dieses Rätsel wird allgemein als ein Beispiel Problem für die Entwicklung von Algorithmen verwendet.
     </p>
 
-    <h2>Springerproblem</h2>
+    <h2 id="knight">Springerproblem</h2>
     <p>Das <a href="http://de.wikipedia.org/wiki/Springerproblem">Springerproblemist</a> ist ein klassisches Spiel, das darin besteht, für einen Springer auf einem leeren Schachbrett eine Route zu finden, auf der dieser jedes Feld genau einmal besucht. Eine Springertour heißt geschlossen, wenn das Endfeld des Springers einen Springerzug vom Startfeld entfernt ist.</p>
 
 	<p>Wählen Sie "Einstellungen", um Variationen des Rätsels zu spielen. Sie können die Größe des Brettes ändern (bis 12x12). Sie können  sowohl geschlossen als auch offenen Rätsel spielen. Schließlich, es ist auch möglich zu wählen, der Springer 3 Positionen in der gleichen Zeile oder Spalte sich bewegen zu können.</p>
@@ -113,7 +120,7 @@
 	   eine weitere interessante Eigenschaft. Die Summe der jede halbe Zeile und jede halbe 
 	   Spalte ist 130, das ist die Hälfte der Summe jeder Zeile und Spalte!</p>
 
-    <h2>Solitär</h2>
+    <h2 id="solo">Solitär</h2>
 
     <p>Solitär ist ein Brettspiel für eine Person. In das Brett liegen sich Steine und Felder. 
       Steine können über benachbarte Steine springen. Steine dürfen nur in Zeilen und Spalten, 
@@ -136,6 +143,16 @@
 	Wilhelm Leibniz schätzte das Spiel und erwähnte 1710 in einem Brief, dass er dafür seine eigene 
 	Variante gefunden hatte. Eines der ältesten gedruckt vorliegenden Spielbretter ist kreuzförmig, hat 
 	45 Felder und stammt von J. C. Wiegleb, 1779.</blockquote>
+    
+    <h2 id="lights">Lights out</h2>
+    
+    <p>Lights Out ist ein elektronisches Spiel, von Tiger Toys im Jahr 1995 veröffentlicht. Das Spiel besteht aus einer 5 x 5 Raster von Lichtern. Wenn das Spiel gestartet wird, wird eine Zufallszahl oder eine gespeicherte Muster dieser Lichter eingeschaltet. Beim Drücken der Lichter schalten sie und die vier angrenzenden Lichter. Das Ziel des Puzzles ist es, alle Lichter auszuschalten, vorzugsweise in möglichst wenigen Tastendrücken.</p>
+
+    <p>Es gibt viele Varianten des Spiels zur Verfügung. Das Spiel kann in Platten mit unterschiedlichen Größen gespielt werden. Es kann auch mit mehr als einem Farben wiedergegeben werden. Die Leuchten können nicht nur ein-und ausschalten, sondern sie von einer Farbe zur anderen zu wechseln. Schließlich wird das Muster zum Umschalten die Lichter anders sein könnte (zB die Diagonale und nicht die angrenzenden Lichter ein-und ausschalten).</p>
+
+    <p>Um das Spiel zu spielen, tippen Sie auf ein Licht. Sie können einen Zug rückgängig machen und von vorne beginnen. Wenn das Rätsel zu schwierig für Sie ist, dann können Sie die Taste "Lösung" tasten. Die Lichter, die gedrückt werden sollten, werden mit einem roten Kreis markiert.</p>
+
+    <p>Die Lösung Algorithmus verwendet <a href="http://de.wikipedia.org/wiki/Gau%C3%9F-Elimination">Gauß-Verfahren</a>  und wird aus <a href="http://www.ueda.info.waseda.ac.jp/~n-kato/lightsout/">http://www.ueda.info.waseda.ac.jp/~n-kato/lightsout/</a> kopiert.</p>    
     
     <h2>Über</h2>
     

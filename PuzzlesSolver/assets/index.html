@@ -36,8 +36,15 @@
   <body>
   <div class="mainframe">
     <h1>Puzzles Collection</h1>
+    
+	<ul>
+    	<li><a href="#queens">8 Queens</a></li>
+    	<li><a href="#knight">Knight's Tour</a></li>
+    	<li><a href="#solo">Peg Solitaire</a></li>
+    	<li><a href="#lights">Lights Out</a></li>
+	</ul>    
 
-    <h2>Eight Queens</h2>
+    <h2 id="queens">Eight Queens</h2>
     <p>This is the classic game of placing 8 queens on the chessboard, without
        one attacking another. Click on a square to place a queen. Re-click to
        remove the queen. This is harder than it initially seems, so a
@@ -52,7 +59,7 @@
         This riddle is commonly used  as an example problem for algorithm design.
     </p>
 
-    <h2>Knight's Tour</h2>
+    <h2 id="knight">Knight's Tour</h2>
     <p>This is another classic. Objective of the game is to guide the knight
        through all of the chessboard's squares. You must end one knight's move
        away from the first move. Click on a highlighted square to move the
@@ -125,7 +132,7 @@
        impossible to build an 8x8 square that is both a full magic square and a knight' tour!
        </p>
 
-    <h2>Solo</h2>
+    <h2 id="solo">Peg Solitaire</h2>
 
     <p>I suppose everyone has tried this at least once before. The game is won
        if just one peg remains on the board. You remove a peg by moving another
@@ -135,6 +142,16 @@
        allowed to move to select it and then click an empty spot to jump over
        the peg in the middle. Select "Undo" from the menu to undo your last move.
     </p>
+    
+    <h2 id="lights">Lights Out</h2>
+    
+    <p>Lights Out is an electronic game, released by Tiger Toys in 1995. The game consists of a 5 by 5 grid of lights. When the game starts, a random number or a stored pattern of these lights is switched on. Pressing any of the lights will toggle it and the four adjacent lights. The goal of the puzzle is to switch all the lights off, preferably in as few button presses as possible.</p>
+
+    <p>There are many variations of the game available. The game can be played in boards with different sizes. It can also be played with more than one colors. The lights can't only be on and off, but instead they switch from one color to another. Finally the pattern for toggling the lights could be different (e.g. the diagonal and not the adjacent lights switch on and off).</p>
+
+    <p>In order to play the game tap on a light to make a move. You can undo a move and start from the beginning. If the puzzle is too difficult for you, then you can press the "Solve" button. The lights that should be pressed in order to solve the puzzle will be marked with a red circle.</p>
+
+    <p>The solving algorithm uses <a href="http://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian Elimination</a> and is copied from <a href="http://www.ueda.info.waseda.ac.jp/~n-kato/lightsout/">http://www.ueda.info.waseda.ac.jp/~n-kato/lightsout/</a>.</p>
     
     <h2>About</h2>
     
