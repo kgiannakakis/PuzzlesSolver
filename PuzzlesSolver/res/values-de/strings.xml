@@ -6,6 +6,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="name">Name</string>
+    <string name="new_game">Neues</string>
     <string name="start_new_game_alert_text">Wollen sie wirklich ein neues Spiel zu starten?</string>
     <string name="finish_game_alert_text">Wollen sie wirklich das Spiel beenden?</string>
     <string name="tip">Beratung</string>

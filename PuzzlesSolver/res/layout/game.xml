@@ -22,7 +22,13 @@
 	                android:drawableLeft="@android:drawable/ic_menu_add"
 	                android:gravity="center_vertical"
 	                android:background="@drawable/main_button"
-	                style="@style/OnBoardButtonIcon"/>                                           
+	                style="@style/OnBoardButtonIcon"/> 
+	       <Button android:id="@+id/game_button_new"
+	               android:drawableLeft="@android:drawable/ic_menu_more"
+	               android:text="@string/new_game"
+	               android:gravity="center_vertical"
+	               android:background="@drawable/main_button"
+	               style="@style/OnBoardButtonIcon"/> 
     </LinearLayout>      
     <TextView android:id="@+id/no_more_moves_message"
         	  android:layout_width="fill_parent"

@@ -45,6 +45,8 @@ public class LightsOutPuzzle extends Puzzle
 
 	private int[] initialBoard = null;
 	
+	private boolean startNewGame = false;
+	
     /** Setter of lightsOutBoard
     * @param lightsOutBoard The board to play
     */
@@ -55,6 +57,7 @@ public class LightsOutPuzzle extends Puzzle
 	public LightsOutPuzzle(Context context) {
 		super(context);
 		enableReplay = false;
+		enableHighScore = false;
 		family = "Lights";
 		
         SharedPreferences preferences =
@@ -108,12 +111,16 @@ public class LightsOutPuzzle extends Puzzle
 			}
 		}
 		
-		if (lightsOutBoard == null || lightsOutBoard.isSolved() || result == true) {
+		if (lightsOutBoard == null || lightsOutBoard.isSolved() || 
+				result == true ||
+				startNewGame ||
+				lightsOutBoard.getBoard().length != boardColumnCount*boardRowCount) {
     		LightsOutBoardFactory factory = new LightsOutBoardFactory();
     		int sizeX = boardColumnCount;
     		int sizeY = boardRowCount;
     		int[] board = factory.getBoard(sizeX, sizeY);
 			lightsOutBoard = new LightsOutBoard(sizeX, sizeY, board);
+			startNewGame = false;
 		}
 		
 		initialBoard = new int[lightsOutBoard.getBoard().length];
@@ -136,9 +143,17 @@ public class LightsOutPuzzle extends Puzzle
 			int [] newBoard = new int [initialBoard.length];
 			System.arraycopy(initialBoard, 0, 
 					newBoard, 0, initialBoard.length);
+			
 			lightsOutBoard = new LightsOutBoard(boardColumnCount, 
 										boardRowCount, newBoard);
 		}
+	}
+	
+	@Override
+	public void newGame() {
+		init();
+		startNewGame = true;
+		configure(PreferenceManager.getDefaultSharedPreferences(context));
 	}
 	
 	@Override
@@ -183,6 +198,7 @@ public class LightsOutPuzzle extends Puzzle
         name = context.getResources().getString(R.string.lights);
         movesMade = 0;
         enableUndo = true;
+        enableNewGame = true;
         
         movesList = new ArrayList<Integer>();
     }

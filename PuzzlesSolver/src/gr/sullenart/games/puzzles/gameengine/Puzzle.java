@@ -98,6 +98,12 @@ public abstract class Puzzle {
 	/** Flag for enabling/disabling replay.*/
 	protected boolean enableReplay = true;
 
+	/** Flag for enabling/disabling start of new game.*/
+	protected boolean enableNewGame = false;	
+	
+	/** Flag for allowing entry of high scores */
+	protected boolean enableHighScore = true;
+	
 	/** true if solving has started.*/
 	protected boolean solverRunning = false;
 
@@ -180,6 +186,14 @@ public abstract class Puzzle {
 	}
 
 	/**
+	 * Returns true if entry of high score is permitted. Default is true.
+	 * @return true if entry of high score is permitted
+	 */
+	public boolean isHighScorePermitted() {
+		return enableHighScore;
+	}
+	
+	/**
 	 * Returns true if solving has started.
 	 *
 	 * @return true if solving has started.
@@ -232,6 +246,14 @@ public abstract class Puzzle {
 		return enableReplay;
 	}
 
+	/**
+	 * Returns true if it is permitted to start a new game. Default is false.
+	 * @return true if starting of new game is permitted
+	 */
+	public boolean isNewGamePermitted() {
+		return enableNewGame;
+	}
+	
 	/**
 	 * Returns true if undoing is supported.
 	 *
@@ -450,4 +472,11 @@ public abstract class Puzzle {
     	init();
     }
     
+    /**
+     * Starts a new game
+     */
+    public void newGame() {
+    
+    }
+
 }

@@ -87,6 +87,7 @@ public class PuzzleActivity extends FragmentActivity
 	private Button solveButton;
 	private Button stopButton;
 	private Button replayButton;
+	private Button newGameButton;
 	private Button settingsButton;
 	private Button customBoardsButton;	
 	
@@ -142,6 +143,7 @@ public class PuzzleActivity extends FragmentActivity
 		solveButton = (Button) findViewById(R.id.game_button_solve);
 		stopButton = (Button) findViewById(R.id.game_button_stop);
 		replayButton = (Button) findViewById(R.id.game_button_replay);
+		newGameButton = (Button) findViewById(R.id.game_button_new);
 		
 		settingsButton = (Button)findViewById(R.id.game_button_settings);
 		customBoardsButton = (Button)findViewById(R.id.game_button_custom_boards);
@@ -178,6 +180,12 @@ public class PuzzleActivity extends FragmentActivity
 				doReplay();
 			}
 		});	
+		newGameButton.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				doNewGame();
+			}
+		});		
 		settingsButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -359,6 +367,10 @@ public class PuzzleActivity extends FragmentActivity
 		return puzzle.isReplayPermitted() && puzzle.isSolved() &&
 				 				  !puzzle.isReplayRunning();
 	}
+	
+	public boolean isNewGameVisible() {
+		return puzzle.isNewGamePermitted();
+	}
 
 	private boolean isSolveVisible() {
 		return puzzle.isSolvePermitted() && !puzzle.isSolved() &&
@@ -379,6 +391,7 @@ public class PuzzleActivity extends FragmentActivity
     	solveButton.setVisibility(isSolveVisible() ? View.VISIBLE : View.GONE);
     	stopButton.setVisibility(isStopVisible() ? View.VISIBLE : View.GONE);
     	replayButton.setVisibility(isReplayVisible() ? View.VISIBLE : View.GONE);
+    	newGameButton.setVisibility(isNewGameVisible() ? View.VISIBLE : View.GONE);
     	
     	customBoardsButton.setVisibility(isCustomBoardsVisible() ?
     									 View.VISIBLE : View.GONE);
@@ -456,6 +469,15 @@ public class PuzzleActivity extends FragmentActivity
 		puzzleView.invalidate();
         updateButtons();
 	}
+	
+	public void doNewGame() {
+    	stopTimer();
+    	isSolverUsed = false;
+    	timeCounter.reset();
+    	puzzle.newGame();
+    	puzzleView.invalidate();
+        updateButtons();
+	}
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
@@ -528,7 +550,8 @@ public class PuzzleActivity extends FragmentActivity
     	if (!isSolverUsed) {
     		score = timeCounter.getTimeSeconds();
     		stopTimer();
-    		if (scoresManager.isHighScore(puzzle.getName(), score)) {
+    		if (puzzle.isHighScorePermitted() &&
+    				scoresManager.isHighScore(puzzle.getName(), score)) {
                 SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 String oldPlayersName = preferences.getString("players_name", "");

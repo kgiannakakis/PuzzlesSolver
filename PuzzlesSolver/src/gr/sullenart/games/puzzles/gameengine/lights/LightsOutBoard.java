@@ -1,6 +1,5 @@
 package gr.sullenart.games.puzzles.gameengine.lights;
 
-
 public class LightsOutBoard {
 
     public static final int LIGHT_OFF = 0;
