@@ -12,15 +12,29 @@ import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
-public class AdsManager implements AdListener {
+public class AdMobManager implements AdListener {
 	//private String publisherId = "a14dcd0326c299a";
 
 	private String publisherId = "a15165a4b86d258";  // SlideME
 	
+	private int adHeight = 0;
 	
 	public void addAdsView(Activity activity, LinearLayout layout) {
         AdView adView;
         int screenLayout = activity.getResources().getConfiguration().screenLayout;
+        if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= 4) {
+        	adView = new AdView(activity, AdSize.IAB_LEADERBOARD, publisherId);
+            adHeight = 90; // 728x90 size for xlarge screens (>= 960dp x 720dp)
+        }
+        else if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 3) {
+        	adView = new AdView(activity, AdSize.IAB_BANNER , publisherId);
+            adHeight = 75; // 468x60 size for large screens (>= 640dp x 480dp)
+        }        
+        else {
+        	adView = new AdView(activity, AdSize.BANNER, publisherId);
+            adHeight = 75; // 320x50 size for normal (>= 470dp x 320dp) and small screens
+        }        
+        
         if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= 3) {
         	adView = new AdView(activity, AdSize.IAB_LEADERBOARD, publisherId);
         }
@@ -44,7 +58,7 @@ public class AdsManager implements AdListener {
 
 	@Override
 	public void onFailedToReceiveAd(Ad ad, ErrorCode errorCode) {
-		Log.e(AdsManager.class.getName(), "Failed to receive ad (" + errorCode + ")");
+		Log.e(AdMobManager.class.getName(), "Failed to receive ad (" + errorCode + ")");
 	}
 
 	@Override

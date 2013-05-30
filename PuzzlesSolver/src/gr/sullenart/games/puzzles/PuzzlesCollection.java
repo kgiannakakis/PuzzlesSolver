@@ -1,6 +1,7 @@
 package gr.sullenart.games.puzzles;
 
-import gr.sullenart.ads.AdsManager;
+import gr.sullenart.ads.AdMobManager;
+import gr.sullenart.ads.MobFoxManager;
 import gr.sullenart.games.puzzles.dialogs.AboutDialog;
 
 import java.util.HashMap;
@@ -30,7 +31,9 @@ public class PuzzlesCollection extends FragmentActivity {
 
 	private PopupWindow gameSelectPopupWindow = null;
 	
-	private AdsManager adsManager = new AdsManager();
+	private AdMobManager adMobManager = new AdMobManager();
+	
+	private MobFoxManager mobfoxManager;
 
     /** Called when the activity is first created. */
     @Override
@@ -74,7 +77,10 @@ public class PuzzlesCollection extends FragmentActivity {
 		});
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.banner_layout);
-        adsManager.addAdsView(this, layout);
+        //adsManager.addAdsView(this, layout);
+        
+        mobfoxManager = new MobFoxManager(this);
+        mobfoxManager.addAdsView(layout);
     }
 
     @Override
