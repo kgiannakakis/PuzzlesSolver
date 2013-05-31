@@ -27,8 +27,11 @@
 			  android:textColor="#FF160066"
 			  android:gravity="center_horizontal"
 			  style="@style/Title" />
-    <LinearLayout android:id="@+id/banner_layout_scores"
-				  android:layout_width="fill_parent"
-				  android:layout_height="wrap_content">
-	</LinearLayout>
+	<RelativeLayout android:layout_width="fill_parent"
+				    android:layout_height="wrap_content">
+	    <LinearLayout android:id="@+id/banner_layout_scores"
+	                  android:layout_centerHorizontal="true"
+					  android:layout_width="wrap_content"
+					  android:layout_height="wrap_content" />
+	</RelativeLayout>
 </LinearLayout>

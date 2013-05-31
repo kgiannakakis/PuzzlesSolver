@@ -8,8 +8,11 @@
         	 android:layout_height="0px"
         	 android:layout_weight="1"
         	 />
-    <LinearLayout android:id="@+id/banner_layout_web"
-				  android:layout_width="fill_parent"
-				  android:layout_height="wrap_content">
-	</LinearLayout>
+	<RelativeLayout android:layout_width="fill_parent"
+				    android:layout_height="wrap_content">
+	    <LinearLayout android:id="@+id/banner_layout_web"
+	                  android:layout_centerHorizontal="true"
+					  android:layout_width="wrap_content"
+					  android:layout_height="wrap_content" />
+	</RelativeLayout>    
 </LinearLayout>

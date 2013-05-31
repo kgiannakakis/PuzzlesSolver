@@ -2,7 +2,6 @@ package gr.sullenart.games.puzzles;
 
 import gr.sullenart.ads.AdsManager;
 import gr.sullenart.ads.AdsNetworkType;
-import gr.sullenart.ads.MobFoxManager;
 import gr.sullenart.games.puzzles.dialogs.AboutDialog;
 
 import java.util.HashMap;
