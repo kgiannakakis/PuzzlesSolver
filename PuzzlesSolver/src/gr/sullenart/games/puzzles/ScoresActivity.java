@@ -1,7 +1,7 @@
 package gr.sullenart.games.puzzles;
 
-import gr.sullenart.ads.AdMobManager;
-import gr.sullenart.ads.MobFoxManager;
+import gr.sullenart.ads.AdsManager;
+import gr.sullenart.ads.AdsNetworkType;
 import gr.sullenart.scores.Score;
 import gr.sullenart.scores.ScoreItemAdapter;
 import gr.sullenart.scores.ScoresManager;
@@ -25,9 +25,7 @@ public class ScoresActivity extends ListActivity  {
 
 	private TextView emptyView;
 
-	private AdMobManager adMobManager = new AdMobManager();
-
-	private MobFoxManager mobfoxManager;
+	private AdsManager adsManager;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,9 +51,11 @@ public class ScoresActivity extends ListActivity  {
         scoresManager = ScoresManagerFactory.getScoresManager(getApplicationContext());
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.banner_layout_scores);
-        //adMobManager.addAdsView(this, layout);
-        mobfoxManager = new MobFoxManager(this);
-        mobfoxManager.addAdsView(layout);        
+
+        adsManager = new AdsManager(this, layout);
+        adsManager.addNetwork(AdsNetworkType.MobFox);
+        adsManager.addNetwork(AdsNetworkType.AdMob);
+        adsManager.startShowingAds();        
     }
 
 	   @Override

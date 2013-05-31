@@ -1,7 +1,8 @@
 package gr.sullenart.games.puzzles;
 
-import gr.sullenart.ads.AdMobManager;
-import gr.sullenart.ads.MobFoxManager;
+import gr.sullenart.ads.AdsManager;
+import gr.sullenart.ads.AdsNetworkType;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,10 +16,9 @@ public class HelpActivity extends Activity {
 
 	private WebView webview;
 
-	private AdMobManager adMobManager = new AdMobManager();
+	private AdsManager adsManager;
 
-	private MobFoxManager mobfoxManager;
-
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,9 +58,10 @@ public class HelpActivity extends Activity {
 			  	getResources().getString(R.string.help_file_name));
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.banner_layout_web);
-        //adMobManager.addAdsView(this, layout);
-        
-        mobfoxManager = new MobFoxManager(this);
-        mobfoxManager.addAdsView(layout);
+
+        adsManager = new AdsManager(this, layout);
+        adsManager.addNetwork(AdsNetworkType.MobFox);
+        adsManager.addNetwork(AdsNetworkType.AdMob);
+        adsManager.startShowingAds();
 	}
 }

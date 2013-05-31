@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Google Play -->
+    <!-- 
+    <string name="admob_publisher_id">a14dcd0326c299a</string>
+    <string name="mobfox_publisher_id">2a9a84547bc55c6e0592f631f63416a3</string>
+     -->
+    <!-- SlideME -->
+    <string name="admob_publisher_id">a15165a4b86d258</string>
+    <string name="mobfox_publisher_id">2a9a84547bc55c6e0592f631f63416a3</string>
+</resources>
