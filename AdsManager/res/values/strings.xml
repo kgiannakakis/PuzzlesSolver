@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">AdsManager</string>
+
+    <string name="admob_publisher_id">AdMob</string>
+    <string name="mobfox_publisher_id">MobFox</string>
+    
+</resources>
