@@ -6,20 +6,19 @@ import android.view.ViewGroup;
 
 import com.adsdk.sdk.Ad;
 import com.adsdk.sdk.AdListener;
-import com.adsdk.sdk.AdManager;
 import com.adsdk.sdk.banner.AdView;
 
 public class MobFoxManager extends AdsNetwork implements AdListener {
 
-	private AdManager adManager;
+	//private AdManager adManager;
 	
 	public MobFoxManager(Activity activity,
 			AdsNetworkListener adsNetworklistener, String publisherId) {
 		super(activity, adsNetworklistener, publisherId);
 		
-		adManager = new AdManager(activity, "http://my.mobfox.com/vrequest.php",
-				publisherId, true);
-		adManager.setListener(this);
+		//adManager = new AdManager(activity, "http://my.mobfox.com/vrequest.php",
+		//		publisherId, true);
+		//adManager.setListener(this);
 		
 		type = AdsNetworkType.MobFox;
 	}
