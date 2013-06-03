@@ -23,6 +23,7 @@ public class AdMobManager extends AdsNetwork implements AdListener {
 
 	private int adHeight = 0;
 	
+	private AdView adView = null;
 	
 	public int getAdHeight() {
 		return adHeight;
@@ -30,28 +31,26 @@ public class AdMobManager extends AdsNetwork implements AdListener {
 
 	@Override
 	public void addAdsView(ViewGroup layout) {
-		
-        AdView adView;
         int screenLayout = activity.getResources().getConfiguration().screenLayout;
         if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= 4) {
         	adView = new AdView(activity, AdSize.IAB_LEADERBOARD, publisherId);
             adHeight = 90; // 728x90 size for xlarge screens (>= 960dp x 720dp)
+            Log.d("AdMobManager", "Adding IAB LEADERBOARD " + 
+            		((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)));
         }
         else if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 3) {
         	adView = new AdView(activity, AdSize.IAB_BANNER , publisherId);
             adHeight = 75; // 468x60 size for large screens (>= 640dp x 480dp)
+            Log.d("AdMobManager", "Adding IAB BANNER " + 
+            		((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)));            
         }        
         else {
         	adView = new AdView(activity, AdSize.BANNER, publisherId);
             adHeight = 75; // 320x50 size for normal (>= 470dp x 320dp) and small screens
+            Log.d("AdMobManager", "Adding BANNER " + 
+            		((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)));            
         }        
         
-        if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= 3) {
-        	adView = new AdView(activity, AdSize.IAB_LEADERBOARD, publisherId);
-        }
-        else {
-        	adView = new AdView(activity, AdSize.BANNER, publisherId);
-        }
         layout.addView(adView);
         AdRequest request = new AdRequest();
         request.addTestDevice(AdRequest.TEST_EMULATOR);
@@ -63,8 +62,11 @@ public class AdMobManager extends AdsNetwork implements AdListener {
 	
 	@Override
 	void removeAdsView(ViewGroup layout) {
-		// TODO Auto-generated method stub
-		
+        if (adView != null) {
+            layout.removeView(adView);
+            adHeight = 0;
+            adView = null;
+        }
 	}	
 
 	@Override
