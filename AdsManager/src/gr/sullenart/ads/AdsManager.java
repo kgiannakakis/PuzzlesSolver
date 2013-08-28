@@ -72,6 +72,17 @@ public class AdsManager implements AdsNetworkListener {
 		}
 	}
 	
+	public int getAdHeight() {
+		if (activeNetwork != AdsNetworkType.None) {
+			int networkIndex = networksMap.get(activeNetwork);
+			return networks.get(networkIndex).getAdHeight();
+		}
+		else if (networks.size() > 0) {
+			return networks.get(0).getAdHeight();
+		}
+		return 0;
+	}
+	
 	@Override
 	public void onAdReceived(AdsNetworkType adsNetworkType) {
 		activeNetwork = adsNetworkType;

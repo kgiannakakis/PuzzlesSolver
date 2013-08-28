@@ -64,4 +64,7 @@ public class MobFoxManager extends AdsNetwork implements AdListener {
 		adsNetworkListener.onAdFailed(type);
 	}
 
+	public int getAdHeight() {
+		return 0;
+	}
 }
