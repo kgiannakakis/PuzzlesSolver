@@ -23,6 +23,12 @@ public class AdsManager implements AdsNetworkListener {
 	
 	private AdsNetworkType activeNetwork = AdsNetworkType.None;
 	
+	private AdsNetworkListener adsNetworkListener;
+	
+	public void setAdsNetworkListener(AdsNetworkListener adsNetworkListener) {
+		this.adsNetworkListener = adsNetworkListener;
+	}
+
 	public AdsManager(Activity activity, ViewGroup adLayout) {
 		this.activity = activity;
 		this.adLayout = adLayout;
@@ -86,6 +92,10 @@ public class AdsManager implements AdsNetworkListener {
 	@Override
 	public void onAdReceived(AdsNetworkType adsNetworkType) {
 		activeNetwork = adsNetworkType;
+		
+		if (adsNetworkListener != null) {
+			adsNetworkListener.onAdReceived(adsNetworkType);
+		}
 	}
 
 	@Override
@@ -94,6 +104,10 @@ public class AdsManager implements AdsNetworkListener {
 		int nextNetworkIndex = networkIndex + 1;
 		if (nextNetworkIndex < networks.size()) {
 			networks.get(nextNetworkIndex).addAdsView(adLayout);
+		}
+		
+		if (adsNetworkListener != null) {
+			adsNetworkListener.onAdFailed(adsNetworkType);
 		}
 	}
 
