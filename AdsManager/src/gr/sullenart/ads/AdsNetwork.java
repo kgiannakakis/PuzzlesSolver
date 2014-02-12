@@ -29,4 +29,8 @@ public abstract class AdsNetwork {
 	abstract void removeAdsView(ViewGroup layout);
 	
 	abstract int getAdHeight();
+	
+	public void destroy() {
+		
+	}
 }

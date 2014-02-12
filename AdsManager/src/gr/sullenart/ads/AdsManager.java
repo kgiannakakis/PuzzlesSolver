@@ -57,6 +57,16 @@ public class AdsManager implements AdsNetworkListener {
 				new MobFoxManager(activity, this, mobFoxPublisherId);
 			networks.add(mobFoxManager);			
 			break;
+		case Amazon:
+			String amazonPublisherId = activity.getString(R.string.amazon_publisher_id);
+			
+			Log.d(AdsManager.class.getName(), "Amazon: " + amazonPublisherId);	
+			
+			
+			AmazonAdsManager amazonAdsManager = 
+				new AmazonAdsManager(activity, this, amazonPublisherId);
+			networks.add(amazonAdsManager);			
+			break;
 		default:
 			return;
 		}
@@ -73,6 +83,7 @@ public class AdsManager implements AdsNetworkListener {
 	public void stopShowingAds() {
 		if (activeNetwork != AdsNetworkType.None) {
 			int networkIndex = networksMap.get(activeNetwork);
+			networks.get(networkIndex).destroy();
 			networks.get(networkIndex).removeAdsView(adLayout);
 			activeNetwork = AdsNetworkType.None;
 		}
