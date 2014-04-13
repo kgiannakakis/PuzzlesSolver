@@ -33,4 +33,8 @@ public abstract class AdsNetwork {
 	public void destroy() {
 		
 	}
+	
+	public void showInterstitial(String adUnitId) {
+		
+	}
 }

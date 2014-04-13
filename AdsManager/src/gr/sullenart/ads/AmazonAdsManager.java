@@ -23,9 +23,9 @@ public class AmazonAdsManager extends AdsNetwork implements AdListener {
 		super(activity, adsNetworklistener, publisherId);
 
         // For debugging purposes enable logging, but disable for production builds
-        AdRegistration.enableLogging(true);
+        AdRegistration.enableLogging(false);
         // For debugging purposes flag all ad requests as tests, but set to false for production builds
-        AdRegistration.enableTesting(true);
+        AdRegistration.enableTesting(false);
         
         //adView = (AdLayout)findViewById(R.id.ad_view);
         //adView.setListener(this);

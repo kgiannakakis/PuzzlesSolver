@@ -6,4 +6,6 @@
     <string name="mobfox_publisher_id">MobFox</string>
     <string name="amazon_publisher_id">Amazon</string>
     
+    <string name="admob_intestitial_ad_unit_id">AdMob</string>
+    
 </resources>
