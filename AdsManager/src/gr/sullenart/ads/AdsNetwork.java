@@ -34,6 +34,10 @@ public abstract class AdsNetwork {
 		
 	}
 	
+	public void loadInterstitial(String adUnitId) {
+		
+	}	
+	
 	public void showInterstitial(String adUnitId) {
 		
 	}

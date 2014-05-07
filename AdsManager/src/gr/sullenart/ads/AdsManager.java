@@ -100,6 +100,13 @@ public class AdsManager implements AdsNetworkListener {
 		return 0;
 	}
 	
+	public void loadInterstitialAd(String adUnitId) {
+		if (networks.size() > 0) {
+			AdsNetwork adsNetwork = networks.get(0);
+			adsNetwork.loadInterstitial(adUnitId);
+		}		
+	}	
+	
 	public void showInterstitialAd(String adUnitId) {
 		if (networks.size() > 0) {
 			AdsNetwork adsNetwork = networks.get(0);
