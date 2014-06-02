@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.amazon.device.ads.Ad;
@@ -104,6 +105,15 @@ public class AmazonAdsManager extends AdsNetwork implements AdListener {
         adView.setListener(this);
 		adView.loadAd(adOptions);			
 	}
+	
+	@Override
+	void addAdsView(ViewGroup layout, RelativeLayout.LayoutParams params) {
+        AdTargetingOptions adOptions = new AdTargetingOptions();
+        AdLayout adView = new AdLayout(activity);	
+		layout.addView(adView, params);
+        adView.setListener(this);
+		adView.loadAd(adOptions);			
+	}	
 
 	@Override
 	void removeAdsView(ViewGroup layout) {

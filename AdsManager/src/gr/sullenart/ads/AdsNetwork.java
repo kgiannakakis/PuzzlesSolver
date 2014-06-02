@@ -2,6 +2,7 @@ package gr.sullenart.ads;
 
 import android.app.Activity;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 public abstract class AdsNetwork {
 
@@ -23,6 +24,8 @@ public abstract class AdsNetwork {
 		this.adsNetworkListener = adsNetworklistener;
 		this.publisherId = publisherId;
 	}
+	
+	abstract void addAdsView(ViewGroup layout, RelativeLayout.LayoutParams params);
 	
 	abstract void addAdsView(ViewGroup layout);
 	

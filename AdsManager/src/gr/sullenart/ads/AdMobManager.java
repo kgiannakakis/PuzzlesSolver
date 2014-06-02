@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -37,6 +38,11 @@ public class AdMobManager extends AdsNetwork {
 
 	@Override
 	public void addAdsView(ViewGroup layout) {
+		addAdsView(layout, null);
+	}
+	
+	@Override
+	public void addAdsView(ViewGroup layout, RelativeLayout.LayoutParams params) {
         int screenLayout = activity.getResources().getConfiguration().screenLayout;
         if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= 4) {
         	adView = new AdView(activity);
@@ -62,8 +68,12 @@ public class AdMobManager extends AdsNetwork {
             Log.d("AdMobManager", "Adding BANNER " + 
             		((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)));            
         }        
-        
-        layout.addView(adView);
+        if (params != null) {
+        	layout.addView(adView, params);
+        }
+        else {
+        	layout.addView(adView);
+        }
         
         adView.setAdListener(new AdListener() {
         	  @Override

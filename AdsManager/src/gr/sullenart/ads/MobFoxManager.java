@@ -3,6 +3,7 @@ package gr.sullenart.ads;
 import android.app.Activity;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.adsdk.sdk.Ad;
 import com.adsdk.sdk.AdListener;
@@ -24,13 +25,21 @@ public class MobFoxManager extends AdsNetwork implements AdListener {
 	}
 	
 	@Override
+	public void addAdsView(ViewGroup layout, RelativeLayout.LayoutParams params) {
+		AdView mAdView = new AdView(activity, "http://my.mobfox.com/request.php",
+				publisherId, true, true);
+		mAdView.setAdListener(this);
+		layout.addView(mAdView, params);		
+	}
+
+	@Override
 	public void addAdsView(ViewGroup layout) {
 		AdView mAdView = new AdView(activity, "http://my.mobfox.com/request.php",
 				publisherId, true, true);
 		mAdView.setAdListener(this);
 		layout.addView(mAdView);		
 	}
-
+	
 	@Override
 	void removeAdsView(ViewGroup layout) {
 		// TODO Auto-generated method stub

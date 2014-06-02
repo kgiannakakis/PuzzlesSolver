@@ -10,6 +10,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 public class AdsManager implements AdsNetworkListener {
 
@@ -25,17 +26,28 @@ public class AdsManager implements AdsNetworkListener {
 	
 	private AdsNetworkListener adsNetworkListener;
 	
+	private RelativeLayout.LayoutParams params = null;
+	
 	public void setAdsNetworkListener(AdsNetworkListener adsNetworkListener) {
 		this.adsNetworkListener = adsNetworkListener;
 	}
 
+	public AdsManager(Activity activity, ViewGroup adLayout, RelativeLayout.LayoutParams params) {
+		this.activity = activity;
+		this.adLayout = adLayout;
+		this.params = params;
+		
+		networks = new ArrayList<AdsNetwork>();
+		networksMap = new HashMap<AdsNetworkType, Integer>();
+	}
+	
 	public AdsManager(Activity activity, ViewGroup adLayout) {
 		this.activity = activity;
 		this.adLayout = adLayout;
 		
 		networks = new ArrayList<AdsNetwork>();
 		networksMap = new HashMap<AdsNetworkType, Integer>();
-	}
+	}	
 	
 	public void addNetwork(AdsNetworkType type) {
 		switch(type) {
@@ -76,7 +88,12 @@ public class AdsManager implements AdsNetworkListener {
 	public void startShowingAds() {
 		if (networks.size() > 0) {
 			AdsNetwork adsNetwork = networks.get(0);
-			adsNetwork.addAdsView(adLayout);
+			if (params != null) {
+				adsNetwork.addAdsView(adLayout, params);
+			}
+			else {
+				adsNetwork.addAdsView(adLayout);
+			}
 		}
 	}
 	
