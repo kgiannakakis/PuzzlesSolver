@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       	  package="gr.sullenart.games.puzzles"
       	  android:installLocation="auto"
-      	  android:versionCode="14"
-          android:versionName="1.91">
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="10" />
+      	  android:versionCode="16"
+          android:versionName="1.93">
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
@@ -15,6 +15,8 @@
                       android:xlargeScreens="true"
                       android:anyDensity="true" />
     <application android:icon="@drawable/icon" android:label="@string/app_name">
+		<meta-data android:name="com.google.android.gms.version"
+               	   android:value="@integer/google_play_services_version"/>        
         <activity android:name=".PuzzlesCollection"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -91,8 +93,8 @@
 					android:name="gr.sullenart.games.puzzles.SOLO_EDIT_BOARDS" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.google.ads.AdActivity"
-              	  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+		<activity android:name="com.google.android.gms.ads.AdActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
         <activity
             android:name="com.adsdk.sdk.banner.InAppWebView"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />

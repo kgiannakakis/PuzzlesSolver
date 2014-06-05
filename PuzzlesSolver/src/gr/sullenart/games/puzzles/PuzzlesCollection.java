@@ -77,9 +77,10 @@ public class PuzzlesCollection extends FragmentActivity {
         LinearLayout layout = (LinearLayout)findViewById(R.id.banner_layout);
         
         adsManager = new AdsManager(this, layout);
-        adsManager.addNetwork(AdsNetworkType.MobFox);
         adsManager.addNetwork(AdsNetworkType.AdMob);
+        adsManager.addNetwork(AdsNetworkType.MobFox);
         adsManager.startShowingAds();
+        adsManager.showInterstitialAd(getString(R.string.admob_intestitial_ad_unit_id));
     }
 
     @Override

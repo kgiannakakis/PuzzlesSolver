@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Google Play -->
-    <string name="admob_publisher_id">a14dcd0326c299a</string>
+    <string name="admob_publisher_id">ca-app-pub-1518420002936480/1670136657</string>
+    <string name="admob_intestitial_ad_unit_id">ca-app-pub-1518420002936480/3848076653</string>
     <string name="mobfox_publisher_id">2a9a84547bc55c6e0592f631f63416a3</string>
     <!-- SlideME -->
     <!-- 
